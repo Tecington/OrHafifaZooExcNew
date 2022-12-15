@@ -1,6 +1,6 @@
-﻿using OrHafifaZooExcNew.Interfaces;
+﻿using OrHafifaZooExcNew.Models.Interfaces;
 
-namespace OrHafifaZooExcNew.Classes
+namespace OrHafifaZooExcNew.Models.Animals.Otters
 {
     internal class Rock : ISerializableObject
     {

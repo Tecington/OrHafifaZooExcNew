@@ -1,7 +1,7 @@
-﻿using OrHafifaZooExcNew.Enums;
-using OrHafifaZooExcNew.Interfaces;
+﻿using OrHafifaZooExcNew.Models.Enums;
+using OrHafifaZooExcNew.Models.Interfaces;
 
-namespace OrHafifaZooExcNew.AnimalFamilies
+namespace OrHafifaZooExcNew.Models.AnimalFamilies
 {
     internal abstract class Animal : ISerializableObject
     {

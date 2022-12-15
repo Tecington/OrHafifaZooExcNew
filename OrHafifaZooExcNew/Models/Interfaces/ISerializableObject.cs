@@ -1,4 +1,4 @@
-﻿namespace OrHafifaZooExcNew.Interfaces
+﻿namespace OrHafifaZooExcNew.Models.Interfaces
 {
     internal interface ISerializableObject
     {

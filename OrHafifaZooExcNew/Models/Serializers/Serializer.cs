@@ -1,6 +1,6 @@
-﻿using OrHafifaZooExcNew.Interfaces;
+﻿using OrHafifaZooExcNew.Models.Interfaces;
 
-namespace OrHafifaZooExcNew.Serializers
+namespace OrHafifaZooExcNew.Models.Serializers
 {
     internal abstract class Serializer
     {
@@ -11,6 +11,7 @@ namespace OrHafifaZooExcNew.Serializers
 
         protected string SerializeProperty(object prop)
         {
+
             return prop switch
             {
                 ISerializableObject value => Serialize(value),

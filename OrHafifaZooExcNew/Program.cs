@@ -8,7 +8,7 @@ internal class Program
     {
        var zoo = new ZooManager();
 
-       zoo.MigrateZooToCsv(ZooExample.Animals);
-       zoo.MigrateZooToJson(ZooExample.Animals);
+       zoo.MigrateZooToCsv(OrsZoo.Animals);
+       zoo.MigrateZooToJson(OrsZoo.Animals);
     }
 }

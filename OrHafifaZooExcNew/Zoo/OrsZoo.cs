@@ -1,15 +1,15 @@
-﻿using OrHafifaZooExcNew.Animals;
-using OrHafifaZooExcNew.Classes;
-using OrHafifaZooExcNew.Enums;
-using OrHafifaZooExcNew.Interfaces;
+﻿using OrHafifaZooExcNew.Classes;
+using OrHafifaZooExcNew.Models.Animals;
+using OrHafifaZooExcNew.Models.Enums;
+using OrHafifaZooExcNew.Models.Interfaces;
 
 namespace OrHafifaZooExcNew.Zoo
 {
-    internal static class ZooExample
+    internal static class OrsZoo
     {
         public static readonly List<ISerializableObject> Animals = new()
         {
-            new Chameleon
+            new Chameleon()
             {
                 Age = 12,
                 CurrentColor = Color.Blue,

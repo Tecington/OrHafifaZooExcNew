@@ -1,7 +1,4 @@
-﻿using OrHafifaZooExcNew.Interfaces;
-using OrHafifaZooExcNew.Serializers;
-
-namespace OrHafifaZooExcNew.FileWriters
+﻿namespace OrHafifaZooExcNew.Models.FileWriters
 {
     internal static class FileWriter
     {

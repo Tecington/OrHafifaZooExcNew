@@ -1,6 +1,6 @@
-﻿using OrHafifaZooExcNew.AnimalFamilies;
+﻿using OrHafifaZooExcNew.Models.AnimalFamilies;
 
-namespace OrHafifaZooExcNew.Animals
+namespace OrHafifaZooExcNew.Models.Animals
 {
     internal class Ostrich : Bird
     {

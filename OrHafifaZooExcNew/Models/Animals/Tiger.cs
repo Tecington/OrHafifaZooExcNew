@@ -1,6 +1,6 @@
-﻿using OrHafifaZooExcNew.AnimalFamilies;
+﻿using OrHafifaZooExcNew.Models.AnimalFamilies;
 
-namespace OrHafifaZooExcNew.Animals
+namespace OrHafifaZooExcNew.Models.Animals
 {
     internal class Tiger : Mammal
     {
@@ -13,7 +13,7 @@ namespace OrHafifaZooExcNew.Animals
 
             basicDictionary.Add($"{nameof(Stripes)}", Stripes);
             basicDictionary.Add($"{nameof(HumansEaten)}", HumansEaten);
-            basicDictionary["type"] = $"{this.GetType().Name}";
+            basicDictionary["type"] = $"{GetType().Name}";
 
             return basicDictionary;
         }

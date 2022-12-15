@@ -1,7 +1,7 @@
-﻿using OrHafifaZooExcNew.AnimalFamilies;
-using OrHafifaZooExcNew.Enums;
+﻿using OrHafifaZooExcNew.Enums;
+using OrHafifaZooExcNew.Models.AnimalFamilies;
 
-namespace OrHafifaZooExcNew.Animals
+namespace OrHafifaZooExcNew.Models.Animals
 {
     internal class Shark : Fish
     {
@@ -14,7 +14,7 @@ namespace OrHafifaZooExcNew.Animals
 
             basicDictionary.Add($"{nameof(IsLawyer)}", IsLawyer);
             basicDictionary.Add($"{nameof(Type)}", Type);
-            basicDictionary["type"] = $"{this.GetType().Name}";
+            basicDictionary["type"] = $"{GetType().Name}";
 
             return basicDictionary;
         }

@@ -1,7 +1,6 @@
-﻿using OrHafifaZooExcNew.AnimalFamilies;
-using OrHafifaZooExcNew.Classes;
+﻿using OrHafifaZooExcNew.Models.AnimalFamilies;
 
-namespace OrHafifaZooExcNew.Animals
+namespace OrHafifaZooExcNew.Models.Animals.Otters
 {
     internal class Otter : Mammal
     {
@@ -12,7 +11,7 @@ namespace OrHafifaZooExcNew.Animals
             var basicDictionary = base.GetProperties();
 
             basicDictionary.Add($"{nameof(FavoriteRock)}", FavoriteRock);
-            basicDictionary["type"] = $"{this.GetType().Name}";
+            basicDictionary["type"] = $"{GetType().Name}";
 
             return basicDictionary;
         }

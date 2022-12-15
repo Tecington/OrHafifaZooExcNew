@@ -1,7 +1,7 @@
-﻿using OrHafifaZooExcNew.AnimalFamilies;
-using OrHafifaZooExcNew.Enums;
+﻿using OrHafifaZooExcNew.Models.AnimalFamilies;
+using OrHafifaZooExcNew.Models.Enums;
 
-namespace OrHafifaZooExcNew.Animals
+namespace OrHafifaZooExcNew.Models.Animals
 {
     internal class Chameleon : Lizard
     {

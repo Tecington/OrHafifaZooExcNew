@@ -1,6 +1,6 @@
-﻿using OrHafifaZooExcNew.Interfaces;
-using OrHafifaZooExcNew.FileWriters;
-using OrHafifaZooExcNew.Serializers;
+﻿using OrHafifaZooExcNew.Serializers;
+using OrHafifaZooExcNew.Models.Interfaces;
+using OrHafifaZooExcNew.Models.FileWriters;
 
 namespace OrHafifaZooExcNew.Zoo
 {
