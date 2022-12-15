@@ -1,24 +1,26 @@
-﻿using OrHafifaZooExcNew.Models.Interfaces;
-
-namespace OrHafifaZooExcNew.Models.Serializers
+﻿namespace OrHafifaZooExcNew.Models.Serializers
 {
     internal abstract class Serializer
     {
-        internal abstract string Serialize(IEnumerable<ISerializableObject> objects);
-        internal abstract string Serialize(ISerializableObject obj);
+        internal abstract string Serialize(IEnumerable<object> objects);
+        internal abstract string Serialize(object obj);
         internal abstract string Serialize(string str);
         internal abstract string Serialize(bool value);
+        internal abstract string Serialize(Enum enumProperty);
+        internal abstract string Serialize(int number);
 
         protected string SerializeProperty(object prop)
         {
 
             return prop switch
             {
-                ISerializableObject value => Serialize(value),
                 string text => Serialize(text),
-                IEnumerable<ISerializableObject> list => Serialize(list),
+                IEnumerable<object> list => Serialize(list),
                 bool value => Serialize(value),
-                _ => $"{(int)prop},"
+                int number => Serialize(number),
+                Enum enumProperty => Serialize(enumProperty),
+                object value => Serialize(value),
+                _ => $"{prop},"
             };
         }
     }

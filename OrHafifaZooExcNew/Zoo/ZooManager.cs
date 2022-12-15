@@ -1,27 +1,27 @@
-﻿using OrHafifaZooExcNew.Serializers;
-using OrHafifaZooExcNew.Models.Interfaces;
+﻿using System.Configuration;
 using OrHafifaZooExcNew.Models.FileWriters;
+using OrHafifaZooExcNew.Models.Serializers;
+using OrHafifaZooExcNew.Properties;
 
 namespace OrHafifaZooExcNew.Zoo
 {
     internal class ZooManager
     {
-        private const string CsvFileEndPath = "\\testCSVfile.csv";
-        private const string JsonFileEndPath = "\\testJsonFile.json";
-        private readonly string _desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        private readonly string CsvFilePath = ConfigurationManager.AppSettings["CsvFilePath"];
+        private readonly string JsonFilePath = ConfigurationManager.AppSettings["JsonFilePath"];
 
-        public void MigrateZooToJson(IEnumerable<ISerializableObject> animals)
+        public void MigrateZooToJson(IEnumerable<object> animals)
         {
             var data = new JsonSerializer().Serialize(animals);
 
-            MigrateZoo(data, _desktopPath + JsonFileEndPath);
+            MigrateZoo(data, JsonFilePath);
         }
 
-        public void MigrateZooToCsv(IEnumerable<ISerializableObject> animals)
+        public void MigrateZooToCsv(IEnumerable<object> animals)
         {
             var data = new CsvSerializer().Serialize(animals);
 
-            MigrateZoo(data, _desktopPath + CsvFileEndPath);
+            MigrateZoo(data, CsvFilePath);
         }
 
         public static void MigrateZoo(string data, string filePath)
@@ -32,7 +32,7 @@ namespace OrHafifaZooExcNew.Zoo
             }
             catch (Exception)
             {
-                ConsoleIo.WriteToConsole("Exception caught writing to file");
+                ConsoleIo.WriteToConsole(Resources.WritingToFileExceptionMessage);
             }
         }
     }

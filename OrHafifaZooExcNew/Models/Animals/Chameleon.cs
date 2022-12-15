@@ -7,14 +7,9 @@ namespace OrHafifaZooExcNew.Models.Animals
     {
         public Color CurrentColor { get; set; }
 
-        public override Dictionary<string, object> GetProperties()
+        public Chameleon()
         {
-            var basicDictionary = base.GetProperties();
-
-            basicDictionary.Add($"{nameof(CurrentColor)}", CurrentColor);
-            basicDictionary["type"] = $"{this.GetType().Name}";
-
-            return basicDictionary;
+            Type = GetType().Name;
         }
     }
 }

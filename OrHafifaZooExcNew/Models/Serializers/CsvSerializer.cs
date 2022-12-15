@@ -1,10 +1,8 @@
-﻿using OrHafifaZooExcNew.Interfaces;
-
-namespace OrHafifaZooExcNew.Serializers
+﻿namespace OrHafifaZooExcNew.Models.Serializers
 {
     internal class CsvSerializer : Serializer
     {
-        internal override string Serialize(IEnumerable<ISerializableObject> objects)
+        internal override string Serialize(IEnumerable<object> objects)
         {
             var csvString = objects.Select(Serialize)
                 .Aggregate(string.Empty, (current, currentObjectCsvString) => 
@@ -13,12 +11,12 @@ namespace OrHafifaZooExcNew.Serializers
             return RemoveExcessFinalChar(csvString);
         }
 
-        internal override string Serialize(ISerializableObject serializableObject)
+        internal override string Serialize(object serializableObject)
         {
-            var dictionary = serializableObject.GetProperties();
+            var propertyInfos = serializableObject.GetType().GetProperties();
 
-            var csvString = dictionary.Values.Aggregate(string.Empty, (current, value) => 
-                current + SerializeProperty(value));
+            var csvString = propertyInfos.Aggregate(string.Empty, (serializedString, currentInfo) => 
+                $"{serializedString}{SerializeProperty(currentInfo.GetValue(serializableObject, null))}");
 
             return RemoveExcessFinalChar(csvString);
         }
@@ -27,9 +25,11 @@ namespace OrHafifaZooExcNew.Serializers
 
         internal override string Serialize(bool value) => $"{value.ToString().ToUpper()},";
 
+        internal override string Serialize(Enum enumProperty) => $"{enumProperty},";
+
         private static string RemoveExcessFinalChar(string str)
         {
-            return str.Remove(str.Length - 1, 1);
+            return str.TrimEnd(',');
         }
     }
 }

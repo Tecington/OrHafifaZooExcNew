@@ -7,15 +7,9 @@ namespace OrHafifaZooExcNew.Models.Animals
         public int Stripes { get; set; }
         public int HumansEaten { get; set; }
 
-        public override Dictionary<string, object> GetProperties()
+        public Tiger()
         {
-            var basicDictionary = base.GetProperties();
-
-            basicDictionary.Add($"{nameof(Stripes)}", Stripes);
-            basicDictionary.Add($"{nameof(HumansEaten)}", HumansEaten);
-            basicDictionary["type"] = $"{GetType().Name}";
-
-            return basicDictionary;
+            Type = GetType().Name;
         }
     }
 }

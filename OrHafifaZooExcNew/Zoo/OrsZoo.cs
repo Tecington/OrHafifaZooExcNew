@@ -1,13 +1,12 @@
-﻿using OrHafifaZooExcNew.Classes;
-using OrHafifaZooExcNew.Models.Animals;
+﻿using OrHafifaZooExcNew.Models.Animals;
+using OrHafifaZooExcNew.Models.Animals.Otters;
 using OrHafifaZooExcNew.Models.Enums;
-using OrHafifaZooExcNew.Models.Interfaces;
 
 namespace OrHafifaZooExcNew.Zoo
 {
     internal static class OrsZoo
     {
-        public static readonly List<ISerializableObject> Animals = new()
+        public static readonly List<object> Animals = new()
         {
             new Chameleon()
             {
@@ -52,7 +51,7 @@ namespace OrHafifaZooExcNew.Zoo
                 Gender = Gender.Male,
                 Name = "Amnon",
                 IsLawyer = true,
-                Type = SharkType.HammerHead
+                SharkType = SharkType.HammerHead
             },
             new Tiger
             {

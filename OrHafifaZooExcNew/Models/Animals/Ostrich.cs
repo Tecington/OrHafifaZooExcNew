@@ -6,14 +6,9 @@ namespace OrHafifaZooExcNew.Models.Animals
     {
         public bool IsHeadInGround { get; set; }
 
-        public override Dictionary<string, object> GetProperties()
+        public Ostrich()
         {
-            var basicDictionary = base.GetProperties();
-
-            basicDictionary.Add($"{nameof(IsHeadInGround)}", IsHeadInGround);
-            basicDictionary["type"] = $"{this.GetType().Name}";
-
-            return basicDictionary;
+            Type = GetType().Name;
         }
     }
 }

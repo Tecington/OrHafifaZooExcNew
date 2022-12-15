@@ -1,12 +1,10 @@
-﻿using OrHafifaZooExcNew.Interfaces;
-
-namespace OrHafifaZooExcNew.Serializers
+﻿namespace OrHafifaZooExcNew.Models.Serializers
 {
     internal class JsonSerializer : Serializer
     {
         private int _tabsCounter;
 
-        internal override string Serialize(IEnumerable<ISerializableObject> objects)
+        internal override string Serialize(IEnumerable<object> objects)
         {
             _tabsCounter++;
 
@@ -22,17 +20,17 @@ namespace OrHafifaZooExcNew.Serializers
             return jsonString + "\n]";
         }
 
-        internal override string Serialize(ISerializableObject serializableObject)
+        internal override string Serialize(object serializableObject)
         {
             _tabsCounter++;
 
-            var dictionary = serializableObject.GetProperties();
+            var propertyInfos = serializableObject.GetType().GetProperties();
 
-            var jsonString = dictionary.Keys.Aggregate("{\n" , (currentPairString, currentKey) =>
+            var jsonString = propertyInfos.Aggregate("{\n" , (currentPairString, currentInfo) =>
             {
-                var propValue = dictionary[currentKey];
+                var propValue = currentInfo.GetValue(serializableObject, null);
 
-                currentPairString += $"{GetTabsAsString(_tabsCounter - 1)}\t\"{currentKey}\": ";
+                currentPairString += $"{GetTabsAsString(_tabsCounter - 1)}\t\"{currentInfo.Name}\": ";
 
                 currentPairString += SerializeProperty(propValue) + "\n";
 
@@ -49,6 +47,8 @@ namespace OrHafifaZooExcNew.Serializers
         internal override string Serialize(string str) => $"\"{str}\",";
 
         internal override string Serialize(bool value) => $"{value},";
+
+        internal override string Serialize(Enum enumProperty) => $"{enumProperty}";
         
         private static string RemoveTrailingComma(string text)
         {

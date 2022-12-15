@@ -7,15 +7,9 @@ namespace OrHafifaZooExcNew.Models.Animals
         public int TrunkLength { get; set; }
         public int Tusks { get; set; }
 
-        public override Dictionary<string, object> GetProperties()
+        public Elephant()
         {
-            var basicDictionary = base.GetProperties();
-
-            basicDictionary.Add($"{nameof(TrunkLength)}", TrunkLength);
-            basicDictionary.Add($"{nameof(Tusks)}", Tusks);
-            basicDictionary["type"] = $"{this.GetType().Name}";
-
-            return basicDictionary;
+            Type = GetType().Name;
         }
     }
 }

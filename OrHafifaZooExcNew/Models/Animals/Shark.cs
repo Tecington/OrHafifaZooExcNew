@@ -1,22 +1,16 @@
-﻿using OrHafifaZooExcNew.Enums;
-using OrHafifaZooExcNew.Models.AnimalFamilies;
+﻿using OrHafifaZooExcNew.Models.AnimalFamilies;
+using OrHafifaZooExcNew.Models.Enums;
 
 namespace OrHafifaZooExcNew.Models.Animals
 {
     internal class Shark : Fish
     {
-        public SharkType Type { get; set; }
+        public SharkType SharkType { get; set; }
         public bool IsLawyer { get; set; }
 
-        public override Dictionary<string, object> GetProperties()
+        public Shark()
         {
-            var basicDictionary = base.GetProperties();
-
-            basicDictionary.Add($"{nameof(IsLawyer)}", IsLawyer);
-            basicDictionary.Add($"{nameof(Type)}", Type);
-            basicDictionary["type"] = $"{GetType().Name}";
-
-            return basicDictionary;
+            Type = GetType().Name;
         }
     }
 }
