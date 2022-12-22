@@ -26,10 +26,8 @@
         internal override string Serialize(bool value) => $"{value.ToString().ToUpper()},";
 
         internal override string Serialize(Enum enumProperty) => $"{enumProperty},";
+        internal override string Serialize(int number) => $"{number},";
 
-        private static string RemoveExcessFinalChar(string str)
-        {
-            return str.TrimEnd(',');
-        }
+        private static string RemoveExcessFinalChar(string str) => str.TrimEnd(',');
     }
 }

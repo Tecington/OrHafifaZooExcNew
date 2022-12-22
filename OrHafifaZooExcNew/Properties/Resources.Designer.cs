@@ -61,7 +61,7 @@ namespace OrHafifaZooExcNew.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exception caught writing to file.
+        ///   Looks up a localized string similar to Something went wrong writing to file.
         /// </summary>
         internal static string WritingToFileExceptionMessage {
             get {

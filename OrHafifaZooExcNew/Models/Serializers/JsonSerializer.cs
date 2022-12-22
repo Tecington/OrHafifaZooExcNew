@@ -1,4 +1,7 @@
-﻿namespace OrHafifaZooExcNew.Models.Serializers
+﻿using System.Reflection;
+using OrHafifaZooExcNew.Models.CustomAttributes;
+
+namespace OrHafifaZooExcNew.Models.Serializers
 {
     internal class JsonSerializer : Serializer
     {
@@ -8,8 +11,7 @@
         {
             _tabsCounter++;
 
-            var jsonString = objects
-                .Select(Serialize)
+            var jsonString = FilterSerializable(objects).Select(Serialize)
                 .Aggregate("[\n", (current, currentObjectJsonString) =>
                     current + ($"{GetTabsAsString(_tabsCounter)}{currentObjectJsonString}\n"));
 
@@ -17,7 +19,18 @@
 
             _tabsCounter--;
 
-            return jsonString + "\n]";
+            return $"{jsonString}\n]";
+        }
+
+        private IEnumerable<object> FilterSerializable(IEnumerable<object> objects)
+        {
+            return objects.Where(obj =>
+            {
+                var attributes = obj.GetType().GetCustomAttributes();
+
+                return attributes.OfType<IsSerializableAttribute>().Select(attribute =>
+                    attribute.IsSerializable).FirstOrDefault(); 
+            });
         }
 
         internal override string Serialize(object serializableObject)
@@ -48,8 +61,9 @@
 
         internal override string Serialize(bool value) => $"{value},";
 
-        internal override string Serialize(Enum enumProperty) => $"{enumProperty}";
-        
+        internal override string Serialize(Enum enumProperty) => $"{enumProperty},";
+        internal override string Serialize(int number) => $"{number},";
+
         private static string RemoveTrailingComma(string text)
         {
             return text.Remove(text.Length - 2, 2);
