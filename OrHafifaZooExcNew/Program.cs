@@ -8,30 +8,28 @@ internal class Program
 {
     private static void Main()
     {
-       //var zoo = new ZooManager();
+        var zoo = new ZooManager();
 
-       //zoo.MigrateZooToCsv(OrsZoo.Animals);
-       //zoo.MigrateZooToJson(OrsZoo.Animals);
+        zoo.MigrateZooToCsv(OrsZoo.Animals);
+        zoo.MigrateZooToJson(OrsZoo.Animals);
 
-       //Print(bloop.beep);
+        //Print(bloop.beep);
 
-       var test = new testClass();
+        //var test = new testClass();
 
-       if (test.GetType().GetCustomAttributes().OfType<IsSerializableAttribute>()
-           .Select(attribute =>
-               attribute.IsSerializable).FirstOrDefault())
-       {
-           Console.WriteLine("Serializingggg");
-       }
+        //if (test.GetType().GetCustomAttribute(typeof(UnSerializableAttribute)) == null)
+        //{
+        //    Console.WriteLine("Serializingggg");
+        //}
     }
 
     private static void Print(Enum anEnum)
     {
-        Console.WriteLine(anEnum);
+        Console.WriteLine(Convert.ToInt32(anEnum));
     }
 }
 
-[IsSerializable(false)]
+[UnSerializable]
 internal class testClass
 {
 
@@ -39,6 +37,6 @@ internal class testClass
 
 internal enum bloop
 {
-    beep = 1,
+    beep = 3,
     boing
 }

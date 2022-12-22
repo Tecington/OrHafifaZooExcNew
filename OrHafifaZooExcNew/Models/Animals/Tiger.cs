@@ -3,7 +3,6 @@ using OrHafifaZooExcNew.Models.CustomAttributes;
 
 namespace OrHafifaZooExcNew.Models.Animals
 {
-    [IsSerializable(true)]
     internal class Tiger : Mammal
     {
         public int Stripes { get; set; }

@@ -1,13 +1,16 @@
-﻿namespace OrHafifaZooExcNew.Models.Serializers
+﻿using OrHafifaZooExcNew.Models.CustomAttributes;
+using System.Reflection;
+
+namespace OrHafifaZooExcNew.Models.Serializers
 {
-    internal abstract class Serializer
+    public abstract class Serializer
     {
-        internal abstract string Serialize(IEnumerable<object> objects);
-        internal abstract string Serialize(object obj);
-        internal abstract string Serialize(string str);
-        internal abstract string Serialize(bool value);
-        internal abstract string Serialize(Enum enumProperty);
-        internal abstract string Serialize(int number);
+        public abstract string Serialize(IEnumerable<object> objects);
+        public abstract string Serialize(object obj);
+        public abstract string Serialize(string str);
+        public abstract string Serialize(bool value);
+        public abstract string Serialize(Enum enumProperty);
+        public abstract string Serialize(int number);
 
         protected string SerializeProperty(object property)
         {
@@ -26,5 +29,14 @@
                 _ => Serialize(property),
             };
         }
+
+        protected IEnumerable<object> FilterUnSerializable(IEnumerable<object> objects) => objects.Where(IsSerializable);
+
+        protected bool IsSerializable(object obj) => 
+            obj.GetType().GetCustomAttribute(typeof(UnSerializableAttribute)) is null;
+
+        protected string RemoveExcessChars(string text) => text.TrimEnd(',', '\n', '\t');
+
+        protected bool IsValidObject(object? obj) => obj is not null && IsSerializable(obj);
     }
 }

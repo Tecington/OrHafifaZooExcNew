@@ -3,7 +3,6 @@ using OrHafifaZooExcNew.Models.CustomAttributes;
 
 namespace OrHafifaZooExcNew.Models.Animals
 {
-    [IsSerializable(true)]
     internal class Ostrich : Bird
     {
         public bool IsHeadInGround { get; set; }

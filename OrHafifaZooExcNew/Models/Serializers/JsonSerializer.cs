@@ -1,73 +1,60 @@
-﻿using System.Reflection;
-using OrHafifaZooExcNew.Models.CustomAttributes;
-
-namespace OrHafifaZooExcNew.Models.Serializers
+﻿namespace OrHafifaZooExcNew.Models.Serializers
 {
     internal class JsonSerializer : Serializer
     {
         private int _tabsCounter;
 
-        internal override string Serialize(IEnumerable<object> objects)
+        public override string Serialize(IEnumerable<object> objects)
         {
             _tabsCounter++;
 
-            var jsonString = FilterSerializable(objects).Select(Serialize)
-                .Aggregate("[\n", (current, currentObjectJsonString) =>
-                    current + ($"{GetTabsAsString(_tabsCounter)}{currentObjectJsonString}\n"));
+            var jsonString = FilterUnSerializable(objects).Select(Serialize)
+                .Aggregate("[\n", (current, currentObjectJsonString) => 
+                    $"{current}{GetTabsAsString(_tabsCounter)}{currentObjectJsonString}\n");
 
-            jsonString = RemoveTrailingComma(jsonString);
+            jsonString = RemoveExcessChars(jsonString);
 
             _tabsCounter--;
 
             return $"{jsonString}\n]";
         }
 
-        private IEnumerable<object> FilterSerializable(IEnumerable<object> objects)
+        public override string Serialize(object? obj)
         {
-            return objects.Where(obj =>
+            if (!IsValidObject(obj))
             {
-                var attributes = obj.GetType().GetCustomAttributes();
+                return string.Empty;
+            }
 
-                return attributes.OfType<IsSerializableAttribute>().Select(attribute =>
-                    attribute.IsSerializable).FirstOrDefault(); 
-            });
-        }
-
-        internal override string Serialize(object serializableObject)
-        {
             _tabsCounter++;
 
-            var propertyInfos = serializableObject.GetType().GetProperties();
+            var propertyInfos = obj.GetType().GetProperties();
 
-            var jsonString = propertyInfos.Aggregate("{\n" , (currentPairString, currentInfo) =>
+            var jsonString = propertyInfos.Aggregate("{\n", (currentPairString, currentInfo) =>
             {
-                var propValue = currentInfo.GetValue(serializableObject, null);
+                var propValue = currentInfo.GetValue(obj);
 
                 currentPairString += $"{GetTabsAsString(_tabsCounter - 1)}\t\"{currentInfo.Name}\": ";
 
-                currentPairString += SerializeProperty(propValue) + "\n";
+                currentPairString += $"{SerializeProperty(propValue)}\n";
 
                 return currentPairString;
             });
 
             _tabsCounter--;
 
-            jsonString = RemoveTrailingComma(jsonString);
+            jsonString = RemoveExcessChars(jsonString);
 
             return jsonString + $"\n{GetTabsAsString(_tabsCounter)}" + "},";
         }
 
-        internal override string Serialize(string str) => $"\"{str}\",";
+        public override string Serialize(string str) => $"\"{str}\",";
 
-        internal override string Serialize(bool value) => $"{value},";
+        public override string Serialize(bool value) => $"{value},";
 
-        internal override string Serialize(Enum enumProperty) => $"{enumProperty},";
-        internal override string Serialize(int number) => $"{number},";
+        public override string Serialize(Enum enumProperty) => $"{Convert.ToInt32(enumProperty)},";
 
-        private static string RemoveTrailingComma(string text)
-        {
-            return text.Remove(text.Length - 2, 2);
-        }
+        public override string Serialize(int number) => $"{number},";
 
         private static string GetTabsAsString(int tabsAmount) => new('\t', tabsAmount);
     }

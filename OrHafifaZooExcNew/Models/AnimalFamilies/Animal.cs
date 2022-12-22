@@ -2,7 +2,7 @@
 
 namespace OrHafifaZooExcNew.Models.AnimalFamilies
 {
-    internal abstract class Animal
+    public abstract class Animal
     {
         public string Name { get; set; }
         public int Age { get; set; }

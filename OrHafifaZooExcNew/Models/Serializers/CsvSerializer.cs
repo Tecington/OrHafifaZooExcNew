@@ -2,32 +2,37 @@
 {
     internal class CsvSerializer : Serializer
     {
-        internal override string Serialize(IEnumerable<object> objects)
+        public override string Serialize(IEnumerable<object> objects)
         {
-            var csvString = objects.Select(Serialize)
+            var csvString = FilterUnSerializable(objects).Select(Serialize)
                 .Aggregate(string.Empty, (current, currentObjectCsvString) => 
-                    current + (currentObjectCsvString + "\n"));
+                    $"{current}{currentObjectCsvString}\n");
 
-            return RemoveExcessFinalChar(csvString);
+            return RemoveExcessChars(csvString);
         }
 
-        internal override string Serialize(object serializableObject)
+        public override string Serialize(object? obj)
         {
-            var propertyInfos = serializableObject.GetType().GetProperties();
+            if (!IsValidObject(obj))
+            {
+                return string.Empty;
+            }
+
+            var propertyInfos = obj.GetType().GetProperties();
 
             var csvString = propertyInfos.Aggregate(string.Empty, (serializedString, currentInfo) => 
-                $"{serializedString}{SerializeProperty(currentInfo.GetValue(serializableObject, null))}");
+                $"{serializedString}{SerializeProperty(currentInfo.GetValue(obj))}");
 
-            return RemoveExcessFinalChar(csvString);
+            //TODO: Deletes , when object within object (the 3 from rock in otter doesn't have ,)
+
+            return RemoveExcessChars(csvString);
         }
 
-        internal override string Serialize(string str) => $"{str},";
+        public override string Serialize(string str) => $"{str},";
 
-        internal override string Serialize(bool value) => $"{value.ToString().ToUpper()},";
+        public override string Serialize(bool value) => $"{value.ToString().ToUpper()},";
 
-        internal override string Serialize(Enum enumProperty) => $"{enumProperty},";
-        internal override string Serialize(int number) => $"{number},";
-
-        private static string RemoveExcessFinalChar(string str) => str.TrimEnd(',');
+        public override string Serialize(Enum enumProperty) => $"{Convert.ToInt32(enumProperty)},";
+        public override string Serialize(int number) => $"{number},";
     }
 }

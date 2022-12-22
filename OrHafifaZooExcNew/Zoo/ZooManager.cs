@@ -7,8 +7,8 @@ namespace OrHafifaZooExcNew.Zoo
 {
     internal class ZooManager
     {
-        private readonly string CsvFilePath = ConfigurationManager.AppSettings["CsvFilePath"];
-        private readonly string JsonFilePath = ConfigurationManager.AppSettings["JsonFilePath"];
+        private readonly string CsvFilePath = ConfigurationManager.AppSettings["CsvFilePath2"];
+        private readonly string JsonFilePath = ConfigurationManager.AppSettings["JsonFilePath2"];
 
         public void MigrateZooToJson(IEnumerable<object> animals)
         {
@@ -24,7 +24,7 @@ namespace OrHafifaZooExcNew.Zoo
             MigrateZoo(data, CsvFilePath);
         }
 
-        public static void MigrateZoo(string data, string filePath)
+        private void MigrateZoo(string data, string filePath)
         {
             try
             {

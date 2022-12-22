@@ -3,9 +3,13 @@ using OrHafifaZooExcNew.Models.CustomAttributes;
 
 namespace OrHafifaZooExcNew.Models.Animals.Otters
 {
-    [IsSerializable(true)]
     internal class Otter : Mammal
     {
         public Rock FavoriteRock { get; set; }
+
+        public Otter()
+        {
+            Type = GetType().Name;
+        }
     }
 }

@@ -4,7 +4,7 @@ using OrHafifaZooExcNew.Models.Enums;
 
 namespace OrHafifaZooExcNew.Models.Animals
 {
-    [IsSerializable(false)]
+    [UnSerializable]
     internal class Shark : Fish
     {
         public SharkType SharkType { get; set; }

@@ -1,4 +1,5 @@
-﻿using OrHafifaZooExcNew.Models.Animals;
+﻿using OrHafifaZooExcNew.Models.AnimalFamilies;
+using OrHafifaZooExcNew.Models.Animals;
 using OrHafifaZooExcNew.Models.Animals.Otters;
 using OrHafifaZooExcNew.Models.Enums;
 
@@ -6,9 +7,9 @@ namespace OrHafifaZooExcNew.Zoo
 {
     internal static class OrsZoo
     {
-        public static readonly List<object> Animals = new()
+        public static readonly List<Animal> Animals = new()
         {
-            new Chameleon()
+            new Chameleon
             {
                 Age = 12,
                 CurrentColor = Color.Blue,
