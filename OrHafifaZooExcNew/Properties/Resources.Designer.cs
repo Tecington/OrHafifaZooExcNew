@@ -61,6 +61,24 @@ namespace OrHafifaZooExcNew.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid save type found.
+        /// </summary>
+        internal static string InvalidSaveTypeExceptionMessage {
+            get {
+                return ResourceManager.GetString("InvalidSaveTypeExceptionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No save type found.
+        /// </summary>
+        internal static string NoSaveTypeChosenExceptionMessage {
+            get {
+                return ResourceManager.GetString("NoSaveTypeChosenExceptionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Something went wrong writing to file.
         /// </summary>
         internal static string WritingToFileExceptionMessage {

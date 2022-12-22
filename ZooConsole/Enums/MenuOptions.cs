@@ -5,6 +5,7 @@
         ViewAll = 1,
         Create,
         Edit,
-        SaveZoo
+        SaveZoo,
+        Exit
     }
 }

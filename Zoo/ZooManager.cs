@@ -1,43 +1,43 @@
 ﻿using System.Configuration;
-using OrHafifaZooExcNew.Exceptions;
-using OrHafifaZooExcNew.Models.FileWriters;
-using OrHafifaZooExcNew.Models.Serializers;
+using Zoo.Exceptions;
+using Zoo.Models.FileWriters;
+using Zoo.Models.Serializers;
 
-namespace OrHafifaZooExcNew.Zoo
+namespace Zoo
 {
     public class ZooManager
     {
         private readonly string CsvFilePath = ConfigurationManager.AppSettings["CsvFilePath2"];
         private readonly string JsonFilePath = ConfigurationManager.AppSettings["JsonFilePath2"];
+        private readonly string SaveType = ConfigurationManager.AppSettings["SaveFileType"];
 
         public void SaveZoo(IEnumerable<object> animals)
         {
-            var saveType = ConfigurationManager.AppSettings["SaveFileType"];
+            switch (SaveType)
+            {
+                case "Json":
+                    MigrateZooToJson(animals);
 
-            if (saveType is null)
-            {
-                throw new NoSaveTypeChosenException();
-            } else if (saveType.Equals("Json"))
-            {
-                MigrateZooToJson(animals);
-            } else if (saveType.Equals("Csv"))
-            {
-                MigrateZooToCsv(animals);
-            }
-            else
-            {
-                throw new InvalidSaveTypeException();
+                    break;
+                case "Csv":
+                    MigrateZooToCsv(animals);
+
+                    break;
+                case null:
+                    throw new NoSaveTypeChosenException();
+                default:
+                    throw new InvalidSaveTypeException();
             }
         }
 
-        internal void MigrateZooToJson(IEnumerable<object> animals)
+        private void MigrateZooToJson(IEnumerable<object> animals)
         {
             var data = new JsonSerializer().Serialize(animals);
 
             MigrateZoo(data, JsonFilePath);
         }
 
-        internal void MigrateZooToCsv(IEnumerable<object> animals)
+        private void MigrateZooToCsv(IEnumerable<object> animals)
         {
             var data = new CsvSerializer().Serialize(animals);
 

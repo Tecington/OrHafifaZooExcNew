@@ -1,9 +1,9 @@
-﻿using OrHafifaZooExcNew.Models.AnimalFamilies;
-using OrHafifaZooExcNew.Models.Animals;
-using OrHafifaZooExcNew.Models.Animals.Otters;
-using OrHafifaZooExcNew.Models.Enums;
+﻿using Zoo.Models.AnimalFamilies;
+using Zoo.Models.Animals;
+using Zoo.Models.Animals.Otters;
+using Zoo.Models.Enums;
 
-namespace OrHafifaZooExcNew.Zoo
+namespace Zoo
 {
     internal static class OrsZoo
     {

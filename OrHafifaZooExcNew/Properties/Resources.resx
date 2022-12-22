@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="InvalidSaveTypeExceptionMessage" xml:space="preserve">
+    <value>Invalid save type found</value>
+  </data>
+  <data name="NoSaveTypeChosenExceptionMessage" xml:space="preserve">
+    <value>No save type found</value>
+  </data>
   <data name="WritingToFileExceptionMessage" xml:space="preserve">
     <value>Something went wrong writing to file</value>
   </data>

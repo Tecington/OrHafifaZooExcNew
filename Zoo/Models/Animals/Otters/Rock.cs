@@ -1,4 +1,4 @@
-﻿namespace OrHafifaZooExcNew.Models.Animals.Otters
+﻿namespace Zoo.Models.Animals.Otters
 {
     public class Rock
     {

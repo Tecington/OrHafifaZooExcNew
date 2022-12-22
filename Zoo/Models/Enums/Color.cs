@@ -1,4 +1,4 @@
-﻿namespace OrHafifaZooExcNew.Models.Enums
+﻿namespace Zoo.Models.Enums
 {
     public enum Color
     {

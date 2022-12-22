@@ -1,4 +1,4 @@
-﻿namespace OrHafifaZooExcNew.Models.FileWriters
+﻿namespace Zoo.Models.FileWriters
 {
     internal static class FileWriter
     {

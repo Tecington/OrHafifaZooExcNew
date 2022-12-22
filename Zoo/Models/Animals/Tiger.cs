@@ -1,7 +1,6 @@
-﻿using OrHafifaZooExcNew.Models.AnimalFamilies;
-using OrHafifaZooExcNew.Models.CustomAttributes;
+﻿using Zoo.Models.AnimalFamilies;
 
-namespace OrHafifaZooExcNew.Models.Animals
+namespace Zoo.Models.Animals
 {
     public class Tiger : Mammal
     {

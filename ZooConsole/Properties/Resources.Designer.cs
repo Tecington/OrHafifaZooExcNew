@@ -59,5 +59,46 @@ namespace ZooConsole.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select property to edit by index:
+        ///.
+        /// </summary>
+        internal static string ChoosePropertyUserMessage {
+            get {
+                return ResourceManager.GetString("ChoosePropertyUserMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thats not a possible option, try again!.
+        /// </summary>
+        internal static string InvalidOptionUserMessage {
+            get {
+                return ResourceManager.GetString("InvalidOptionUserMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View all - {0}
+        ///Create new animal - {1}
+        ///Edit existing animal - {2}
+        ///Save zoo - {3}
+        ///Exit - {4}.
+        /// </summary>
+        internal static string MainMenu {
+            get {
+                return ResourceManager.GetString("MainMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select animal to edit by index:.
+        /// </summary>
+        internal static string SelectAnimalToEditUserMessage {
+            get {
+                return ResourceManager.GetString("SelectAnimalToEditUserMessage", resourceCulture);
+            }
+        }
     }
 }

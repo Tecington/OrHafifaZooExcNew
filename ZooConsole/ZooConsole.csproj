@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OrHafifaZooExcNew\OrHafifaZooExcNew.csproj" />
+    <ProjectReference Include="..\Zoo\Zoo.csproj" />
   </ItemGroup>
 
   <ItemGroup>

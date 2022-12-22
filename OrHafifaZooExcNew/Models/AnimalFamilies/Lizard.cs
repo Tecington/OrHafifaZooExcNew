@@ -1,6 +1,6 @@
 ﻿namespace OrHafifaZooExcNew.Models.AnimalFamilies
 {
-    internal class Lizard : Animal
+    public class Lizard : Animal
     {
     }
 }

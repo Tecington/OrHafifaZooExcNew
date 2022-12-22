@@ -1,6 +1,6 @@
-﻿using OrHafifaZooExcNew.Models.AnimalFamilies;
+﻿using Zoo.Models.AnimalFamilies;
 
-namespace OrHafifaZooExcNew.Models.Animals.Otters
+namespace Zoo.Models.Animals.Otters
 {
     public class Otter : Mammal
     {
