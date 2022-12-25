@@ -1,7 +1,7 @@
 ﻿namespace Zoo.Models.CustomAttributes
 {
     [AttributeUsage(AttributeTargets.Class)]
-    public class UnSerializableAttribute : Attribute
+    public class AnimalAttribute : Attribute
     {
     }
 }

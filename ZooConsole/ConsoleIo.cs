@@ -8,6 +8,11 @@ namespace ZooConsole
 {
     internal static class ConsoleIo
     {
+        internal static void Write(string text) 
+        {
+            Console.WriteLine(text);
+        }
+
         internal static MenuOptions GetMenuOption()
         {
             var verifyInput = (string option) =>
@@ -54,37 +59,43 @@ namespace ZooConsole
         {
             var verifyInput = (string option) =>
                 VerifyEnumValue(option, enumType);
-            var printOptions = () => PrintEnumOptions(enumType);
+            var printOptions = () =>
+            {
+                Console.WriteLine($"Please choose {enumType.Name}:");
+                PrintEnumOptions(enumType);
+            };
 
             var enumIndex = GetVerifiedInput(printOptions, verifyInput);
 
-            return int.Parse(enumIndex) - 1;
+            return int.Parse(enumIndex);
         }
 
-        internal static int GetIntProperty(string getPropertyMessage)
+        internal static int GetIntProperty(PropertyInfo propertyInfo)
         {
-            var printOptions = () => Console.WriteLine(getPropertyMessage);
+            var printOptions = () => Console.WriteLine(string.Format
+                (Resources.GetPropertyUserMessage, propertyInfo.Name));
 
             var intValue = GetVerifiedInput(printOptions, VerifyIntValue);
 
             return int.Parse(intValue);
         }
 
-        internal static string GetNameProperty(string getNameMessage, List<Animal> animals)
+        internal static string GetNameProperty(PropertyInfo propertyInfo, List<Animal> animals)
         {
             var verifyInput = (string str) => VerifyString(str) 
                 && VerifyNameAvailable(str, animals);
 
-            return GetStringProperty(getNameMessage, verifyInput);
+            return GetStringProperty(propertyInfo, verifyInput);
         }
 
-        internal static string GetStringProperty(string getPropertyMessage) => 
-            GetStringProperty(getPropertyMessage, VerifyString);
+        internal static string GetStringProperty(PropertyInfo propertyInfo) => 
+            GetStringProperty(propertyInfo, VerifyString);
 
-        private static string GetStringProperty(string getPropertyMessage, 
+        private static string GetStringProperty(PropertyInfo propertyInfo, 
             Func<string, bool> verifyInput)
         {
-            var printOptions = () => Console.WriteLine(getPropertyMessage);
+            var printOptions = () => Console.WriteLine(string.Format
+                (Resources.GetPropertyUserMessage, propertyInfo.Name));
 
             var str = GetVerifiedInput(printOptions, verifyInput);
 

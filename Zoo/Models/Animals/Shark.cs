@@ -4,7 +4,7 @@ using Zoo.Models.Enums;
 
 namespace Zoo.Models.Animals
 {
-    [UnSerializable]
+    [UnSerializable, Animal]
     public class Shark : Fish
     {
         public SharkType SharkType { get; set; }

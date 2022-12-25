@@ -80,6 +80,24 @@ namespace ZooConsole.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Oops, Something went wrong executing your choice. Try again!.
+        /// </summary>
+        internal static string ExceptionCaughtUserMessage {
+            get {
+                return ResourceManager.GetString("ExceptionCaughtUserMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter {0}:.
+        /// </summary>
+        internal static string GetPropertyUserMessage {
+            get {
+                return ResourceManager.GetString("GetPropertyUserMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thats not a possible option, try again!.
         /// </summary>
         internal static string InvalidOptionUserMessage {
