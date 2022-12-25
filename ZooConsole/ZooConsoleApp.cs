@@ -10,17 +10,25 @@ namespace ZooConsole
 {
     internal class ZooConsoleApp
     {
-        private Dictionary<MenuOptions, Action> Dictionary { get; }
+        private Dictionary<MenuOptions, Action> MenuDictionary { get; }
+        private Dictionary<Type, Action<Type, PropertyInfo, object>> CreatePropertyDictionary { get; }
         private ZooManager ZooManager { get; }
 
         internal ZooConsoleApp()
         {
-            Dictionary = new Dictionary<MenuOptions, Action>
+            MenuDictionary = new Dictionary<MenuOptions, Action>
             {
                 { MenuOptions.ViewAll, ViewAll },
                 { MenuOptions.Create, Create },
                 { MenuOptions.Edit, Edit },
                 { MenuOptions.SaveZoo, SaveZoo }
+            };
+
+            CreatePropertyDictionary = new Dictionary<Type, Action<Type, PropertyInfo, object>>
+            {
+                {typeof(string), SetStringProperty },
+                {typeof(int), SetIntProperty },
+                {typeof(bool), SetBoolProperty }
             };
 
             ZooManager = new ZooManager();
@@ -42,7 +50,7 @@ namespace ZooConsole
         {
             try
             {
-                Dictionary[menuOption].Invoke();
+                MenuDictionary[menuOption].Invoke();
             } catch (Exception)
             {
                 ConsoleIo.Write(Resources.ExceptionCaughtUserMessage);
@@ -83,7 +91,8 @@ namespace ZooConsole
         private object CreateObject(Type objectType)
         {
             var newObject = Activator.CreateInstance(objectType);
-            var objectProperties = objectType.GetProperties();
+            var objectProperties = objectType.GetProperties()
+                .Where(property => !property.Name.Equals("Type"));
 
             foreach (var propertyInfo in objectProperties)
             {
@@ -97,23 +106,14 @@ namespace ZooConsole
         {
             var propertyType = propertyInfo.PropertyType;
 
-            if (propertyType.IsEnum)
+            if (CreatePropertyDictionary.ContainsKey(propertyType))
+            {
+                CreatePropertyDictionary[propertyType]
+                    .Invoke(propertyType, propertyInfo, obj);
+            }
+            else if (propertyType.IsEnum)
             {
                 SetEnumProperty(propertyType, propertyInfo, obj);
-            }
-            else if (propertyType == typeof(string))
-            {
-                if (!propertyInfo.Name.Equals("Type"))
-                {
-                    SetStringProperty(propertyType, propertyInfo, obj);
-                }
-            }
-            else if (propertyType == typeof(int))
-            {
-                SetIntProperty(propertyType, propertyInfo, obj);
-            } else if (propertyType == typeof(bool))
-            {
-                SetBoolProperty(propertyType, propertyInfo, obj);
             }
             else
             {
