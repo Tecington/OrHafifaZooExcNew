@@ -40,7 +40,7 @@ namespace ZooConsole
 
         private void Create()
         {
-
+            var animalType = ConsoleIo.GetAnimalTypeToCreate(AnimalTypes.Types);
         }
 
         private void Edit()

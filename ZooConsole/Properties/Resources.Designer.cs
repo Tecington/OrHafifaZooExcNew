@@ -71,6 +71,15 @@ namespace ZooConsole.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} Options:.
+        /// </summary>
+        internal static string EnumOptionsTitle {
+            get {
+                return ResourceManager.GetString("EnumOptionsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thats not a possible option, try again!.
         /// </summary>
         internal static string InvalidOptionUserMessage {
@@ -98,6 +107,15 @@ namespace ZooConsole.Properties {
         internal static string SelectAnimalToEditUserMessage {
             get {
                 return ResourceManager.GetString("SelectAnimalToEditUserMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select animal type to create by index:.
+        /// </summary>
+        internal static string SelectAnimalTypeToCreateMessage {
+            get {
+                return ResourceManager.GetString("SelectAnimalTypeToCreateMessage", resourceCulture);
             }
         }
     }

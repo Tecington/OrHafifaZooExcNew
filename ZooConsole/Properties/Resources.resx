@@ -121,6 +121,9 @@
     <value>Please select property to edit by index:
 </value>
   </data>
+  <data name="EnumOptionsTitle" xml:space="preserve">
+    <value>{0} Options:</value>
+  </data>
   <data name="InvalidOptionUserMessage" xml:space="preserve">
     <value>Thats not a possible option, try again!</value>
   </data>
@@ -133,5 +136,8 @@ Exit - {4}</value>
   </data>
   <data name="SelectAnimalToEditUserMessage" xml:space="preserve">
     <value>Please select animal to edit by index:</value>
+  </data>
+  <data name="SelectAnimalTypeToCreateMessage" xml:space="preserve">
+    <value>Please select animal type to create by index:</value>
   </data>
 </root>
