@@ -2,6 +2,7 @@
 using Zoo;
 using Zoo.Models.AnimalFamilies;
 using Zoo.Models.CustomAttributes;
+using ZooConsole.Data;
 using ZooConsole.Enums;
 using ZooConsole.Properties;
 
@@ -60,6 +61,7 @@ namespace ZooConsole
                 && !type.IsDefined(typeof(UnSerializableAttribute)));
 
             var animalType = ConsoleIo.GetAnimalTypeToCreate(animalTypes.ToList());
+            
             var newAnimal = CreateObject(animalType);
 
             OrsZoo.Animals.Add((Animal)newAnimal);
@@ -67,7 +69,10 @@ namespace ZooConsole
 
         private void Edit()
         {
+            var animal = ConsoleIo.GetAnimalToEdit(OrsZoo.Animals);
+            var property = ConsoleIo.GetPropertyToEdit(animal);
 
+            CreateProperty(property, animal);
         }
 
         private void SaveZoo()
@@ -82,30 +87,38 @@ namespace ZooConsole
 
             foreach (var propertyInfo in objectProperties)
             {
-                var propertyType = propertyInfo.PropertyType;
-
-                if (propertyType.IsEnum)
-                {
-                    SetEnumProperty(propertyType, propertyInfo, newObject);
-                }
-                else if (propertyType == typeof(string))
-                {
-                    if (!propertyInfo.Name.Equals("Type"))
-                    {
-                        SetStringProperty(propertyType, propertyInfo, newObject);
-                    }
-                }
-                else if (propertyType == typeof(int))
-                {
-                    SetIntProperty(propertyType, propertyInfo, newObject);
-                }
-                else
-                {
-                    SetObjectProperty(propertyType, propertyInfo, newObject);
-                }
+                CreateProperty(propertyInfo, newObject);
             }
 
             return newObject;
+        }
+
+        private void CreateProperty(PropertyInfo propertyInfo, object obj)
+        {
+            var propertyType = propertyInfo.PropertyType;
+
+            if (propertyType.IsEnum)
+            {
+                SetEnumProperty(propertyType, propertyInfo, obj);
+            }
+            else if (propertyType == typeof(string))
+            {
+                if (!propertyInfo.Name.Equals("Type"))
+                {
+                    SetStringProperty(propertyType, propertyInfo, obj);
+                }
+            }
+            else if (propertyType == typeof(int))
+            {
+                SetIntProperty(propertyType, propertyInfo, obj);
+            } else if (propertyType == typeof(bool))
+            {
+                SetBoolProperty(propertyType, propertyInfo, obj);
+            }
+            else
+            {
+                SetObjectProperty(propertyType, propertyInfo, obj);
+            }
         }
 
         private void SetEnumProperty(Type propertyType,
@@ -137,6 +150,14 @@ namespace ZooConsole
             PropertyInfo propertyInfo, object newObject)
         {
             var value = ConsoleIo.GetIntProperty(propertyInfo);
+
+            propertyInfo.SetValue(newObject, value);
+        }
+
+        private void SetBoolProperty(Type propertyType,
+            PropertyInfo propertyInfo, object newObject)
+        {
+            var value = ConsoleIo.GetBoolProperty(propertyInfo);
 
             propertyInfo.SetValue(newObject, value);
         }

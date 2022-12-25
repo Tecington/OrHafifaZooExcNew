@@ -3,7 +3,7 @@ using Zoo.Models.Animals;
 using Zoo.Models.Animals.Otters;
 using Zoo.Models.Enums;
 
-namespace Zoo
+namespace ZooConsole.Data
 {
     internal static class OrsZoo
     {

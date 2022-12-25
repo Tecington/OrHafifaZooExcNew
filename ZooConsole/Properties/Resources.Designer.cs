@@ -61,6 +61,16 @@ namespace ZooConsole.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 1. True
+        ///2. False.
+        /// </summary>
+        internal static string BoolOptions {
+            get {
+                return ResourceManager.GetString("BoolOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please select property to edit by index:
         ///.
         /// </summary>

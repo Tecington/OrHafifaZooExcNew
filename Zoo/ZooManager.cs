@@ -7,8 +7,8 @@ namespace Zoo
 {
     public class ZooManager
     {
-        private readonly string CsvFilePath = ConfigurationManager.AppSettings["CsvFilePath2"];
-        private readonly string JsonFilePath = ConfigurationManager.AppSettings["JsonFilePath2"];
+        private readonly string CsvFilePath = ConfigurationManager.AppSettings["CsvFilePath"];
+        private readonly string JsonFilePath = ConfigurationManager.AppSettings["JsonFilePath"];
         private readonly string SaveType = ConfigurationManager.AppSettings["SaveFileType"];
 
         public void SaveZoo(IEnumerable<object> animals)

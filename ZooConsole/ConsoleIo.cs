@@ -36,7 +36,7 @@ namespace ZooConsole
         internal static Type GetAnimalTypeToCreate(List<Type> animalTypes)
         {
             var verifyInput = (string option) =>
-                VerifyIndexInRange(option, animalTypes.Count);
+                VerifyIntInRange(option, min: 1, max: animalTypes.Count);
             var printOptions = () => PrintAnimalTypes(animalTypes);
 
             var animalIndex = GetVerifiedInput(printOptions, verifyInput);
@@ -54,14 +54,14 @@ namespace ZooConsole
             }
         }
 
-        // Change all the getters to just a GetProperty with different params
         internal static int GetEnumProperty(Type enumType)
         {
             var verifyInput = (string option) =>
                 VerifyEnumValue(option, enumType);
             var printOptions = () =>
             {
-                Console.WriteLine($"Please choose {enumType.Name}:");
+                Console.WriteLine(string.Format
+                    (Resources.GetPropertyUserMessage, enumType.Name));
                 PrintEnumOptions(enumType);
             };
 
@@ -72,12 +72,28 @@ namespace ZooConsole
 
         internal static int GetIntProperty(PropertyInfo propertyInfo)
         {
+            var verifyInput = (string option) => VerifyIntInRange(option, min: 0);
             var printOptions = () => Console.WriteLine(string.Format
                 (Resources.GetPropertyUserMessage, propertyInfo.Name));
 
-            var intValue = GetVerifiedInput(printOptions, VerifyIntValue);
+            var value = GetVerifiedInput(printOptions, verifyInput);
 
-            return int.Parse(intValue);
+            return int.Parse(value);
+        }
+
+        internal static bool GetBoolProperty(PropertyInfo propertyInfo)
+        {
+            var verifyInput = (string option) => VerifyIntInRange(option, 1, 2);
+            var printOptions = () => 
+            {
+                Console.WriteLine(@$"{string.Format
+                    (Resources.GetPropertyUserMessage, propertyInfo.Name)}" +
+                    $"\n{Resources.BoolOptions}");
+            };
+
+            var value = GetVerifiedInput(printOptions, verifyInput);
+
+            return int.Parse(value) == 1;
         }
 
         internal static string GetNameProperty(PropertyInfo propertyInfo, List<Animal> animals)
@@ -105,7 +121,7 @@ namespace ZooConsole
         internal static Animal GetAnimalToEdit(List<Animal> animals)
         {
             var verifyInput = (string option) => 
-                VerifyIndexInRange(option, animals.Count);
+                VerifyIntInRange(option, min: 1, max: animals.Count);
             var printOptions = () => PrintAnimalEditList(animals);
 
             var animalIndex = GetVerifiedInput(printOptions, verifyInput);
@@ -118,7 +134,7 @@ namespace ZooConsole
             var propertyInfos = animal.GetType().GetProperties();
 
             var verifyInput = (string option) => 
-                VerifyIndexInRange(option, propertyInfos.Length);
+                VerifyIntInRange(option, min: 1, max: propertyInfos.Length);
             var printOptions = () => PrintAnimalProperties(animal);
 
             var propertyIndex = GetVerifiedInput(printOptions, verifyInput);
@@ -137,7 +153,9 @@ namespace ZooConsole
         {
             var propertyInfos = obj.GetType().GetProperties();
 
-            for (var i = 0; i < propertyInfos.Length; i++)
+            var propertyInfosList = propertyInfos.Where(propertyInfo => !propertyInfo.Name.Equals("Type")).ToList();
+
+            for (var i = 0; i < propertyInfosList.Count; i++)
             {
                 PrintProperty(propertyInfos[i], obj, i);
             }
@@ -193,16 +211,11 @@ namespace ZooConsole
         private static bool IsComplexObject(object obj) => 
             !obj.GetType().IsPrimitive && obj is not string && !obj.GetType().IsEnum;
 
-        private static bool VerifyIndexInRange(string index, int length)
-        {
-            return int.TryParse(index, out var indexIntValue)
-                   && indexIntValue > 0 && indexIntValue <= length;
-        }
-
-        private static bool VerifyIntValue(string intString)
+        private static bool VerifyIntInRange(string intString, 
+            int min = int.MinValue, int max = int.MaxValue)
         {
             return int.TryParse(intString, out var intValue)
-                   && intValue >= 0;
+                   && intValue >= min && intValue <= max;
         }
 
         private static bool VerifyEnumValue(string option, Type enumType)
