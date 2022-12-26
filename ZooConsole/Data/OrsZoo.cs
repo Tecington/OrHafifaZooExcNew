@@ -1,5 +1,5 @@
-﻿using Zoo.Models.Animals;
-using Zoo.Models.Animals.Otters;
+﻿using Zoo.Models;
+using Zoo.Models.Animals;
 using Zoo.Models.Enums;
 
 namespace ZooConsole.Data

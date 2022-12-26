@@ -125,9 +125,6 @@
     <value>Please select property to edit by index:
 </value>
   </data>
-  <data name="EnumOptionsTitle" xml:space="preserve">
-    <value>{0} Options:</value>
-  </data>
   <data name="ExceptionCaughtUserMessage" xml:space="preserve">
     <value>Oops, Something went wrong executing your choice. Try again!</value>
   </data>
@@ -138,7 +135,8 @@
     <value>Thats not a possible option, try again!</value>
   </data>
   <data name="MainMenu" xml:space="preserve">
-    <value>View all - {0}
+    <value>Main Menu:
+View all animals - {0}
 Create new animal - {1}
 Edit existing animal - {2}
 Save zoo - {3}

@@ -81,15 +81,6 @@ namespace ZooConsole.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} Options:.
-        /// </summary>
-        internal static string EnumOptionsTitle {
-            get {
-                return ResourceManager.GetString("EnumOptionsTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Oops, Something went wrong executing your choice. Try again!.
         /// </summary>
         internal static string ExceptionCaughtUserMessage {
@@ -117,7 +108,8 @@ namespace ZooConsole.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to View all - {0}
+        ///   Looks up a localized string similar to Main Menu:
+        ///View all animals - {0}
         ///Create new animal - {1}
         ///Edit existing animal - {2}
         ///Save zoo - {3}

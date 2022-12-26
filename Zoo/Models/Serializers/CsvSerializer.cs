@@ -23,8 +23,6 @@
             var csvString = propertyInfos.Aggregate(string.Empty, (serializedString, currentInfo) => 
                 $"{serializedString}{SerializeProperty(currentInfo.GetValue(obj))}");
 
-            //TODO: Deletes , when object within object (the 3 from rock in otter doesn't have ,)
-
             return RemoveExcessChars(csvString);
         }
 
@@ -33,6 +31,7 @@
         public override string Serialize(bool value) => $"{value.ToString().ToUpper()},";
 
         public override string Serialize(Enum enumProperty) => $"{Convert.ToInt32(enumProperty)},";
+        
         public override string Serialize(int number) => $"{number},";
     }
 }

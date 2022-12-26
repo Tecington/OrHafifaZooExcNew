@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Text.RegularExpressions;
 using Zoo.Models.Animals;
 using ZooConsole.Models.Enums;
 using ZooConsole.Properties;
@@ -14,31 +15,31 @@ namespace ZooConsole.Models.IO
 
         internal static MenuOptions GetMenuOption()
         {
-            var verifyInput = (string option) =>
+            var isInputValid = (string option) =>
                 Validation.IsValidEnumValue(option, typeof(MenuOptions));
 
-            var menuOption = GetValidInput(PrintMainMenu, verifyInput);
+            var menuOption = GetValidInput(PrintMainMenu, isInputValid);
 
             return (MenuOptions)int.Parse(menuOption);
         }
 
         internal static void PrintZoo(List<Animal> animals)
         {
-            foreach (var animal in animals)
+            animals.ForEach(animal =>
             {
                 Console.WriteLine($"{animal.Name} - {animal.Type}:");
                 PrintObjectProperties(animal);
                 Console.WriteLine();
-            }
+            });
         }
 
         internal static Type GetAnimalTypeToCreate(List<Type> animalTypes)
         {
-            var verifyInput = (string option) =>
+            var isInputValid = (string option) =>
                 Validation.IsIntInRange(option, min: 1, max: animalTypes.Count);
             var printOptions = () => PrintAnimalTypes(animalTypes);
 
-            var animalIndex = GetValidInput(printOptions, verifyInput);
+            var animalIndex = GetValidInput(printOptions, isInputValid);
 
             return animalTypes[int.Parse(animalIndex) - 1];
         }
@@ -47,15 +48,15 @@ namespace ZooConsole.Models.IO
         {
             Console.WriteLine(Resources.SelectAnimalTypeToCreateMessage);
 
-            for (int i = 0; i < types.Count; i++)
+            for (int index = 0; index < types.Count; index++)
             {
-                Console.WriteLine($"{i + 1} {types[i].Name}");
+                Console.WriteLine($"{index + 1} {types[index].Name}");
             }
         }
 
         internal static int GetEnumProperty(Type enumType)
         {
-            var verifyInput = (string option) =>
+            var isInputValid = (string option) =>
                 Validation.IsValidEnumValue(option, enumType);
             var printOptions = () =>
             {
@@ -64,26 +65,26 @@ namespace ZooConsole.Models.IO
                 PrintEnumOptions(enumType);
             };
 
-            var enumIndex = GetValidInput(printOptions, verifyInput);
+            var enumIndex = GetValidInput(printOptions, isInputValid);
 
             return int.Parse(enumIndex);
         }
 
         internal static int GetIntProperty(PropertyInfo propertyInfo)
         {
-            var verifyInput = (string option) =>
+            var isInputValid = (string option) =>
                 Validation.IsIntInRange(option, min: 0);
             var printOptions = () => Console.WriteLine(string.Format
                 (Resources.GetPropertyUserMessage, propertyInfo.Name));
 
-            var value = GetValidInput(printOptions, verifyInput);
+            var value = GetValidInput(printOptions, isInputValid);
 
             return int.Parse(value);
         }
 
         internal static bool GetBoolProperty(PropertyInfo propertyInfo)
         {
-            var verifyInput = (string option) => Validation.IsIntInRange(option, 1, 2);
+            var isInputValid = (string option) => Validation.IsIntInRange(option, 1, 2);
             var printOptions = () =>
             {
                 Console.WriteLine(@$"{string.Format
@@ -91,73 +92,73 @@ namespace ZooConsole.Models.IO
                     $"\n{Resources.BoolOptions}");
             };
 
-            var value = GetValidInput(printOptions, verifyInput);
+            var value = GetValidInput(printOptions, isInputValid);
 
             return int.Parse(value) == 1;
         }
 
         internal static string GetNameProperty(PropertyInfo propertyInfo, List<Animal> animals)
         {
-            var verifyInput = (string str) => Validation.IsValidString(str)
+            var isInputValid = (string str) => Validation.IsValidString(str)
                 && Validation.IsNameAvailable(str, animals);
 
-            return GetStringProperty(propertyInfo, verifyInput);
+            return GetStringProperty(propertyInfo, isInputValid);
         }
 
         internal static string GetStringProperty(PropertyInfo propertyInfo) =>
             GetStringProperty(propertyInfo, Validation.IsValidString);
 
         private static string GetStringProperty(PropertyInfo propertyInfo,
-            Func<string, bool> verifyInput)
+            Func<string, bool> isInputValid)
         {
             var printOptions = () => Console.WriteLine(string.Format
                 (Resources.GetPropertyUserMessage, propertyInfo.Name));
 
-            var str = GetValidInput(printOptions, verifyInput);
+            var str = GetValidInput(printOptions, isInputValid);
 
             return str;
         }
 
         internal static Animal GetAnimalToEdit(List<Animal> animals)
         {
-            var verifyInput = (string option) =>
+            var isInputValid = (string option) =>
                 Validation.IsIntInRange(option, min: 1, max: animals.Count);
-            var printOptions = () => PrintAnimalEditList(animals);
+            var printOptions = () => PrintAnimalToEditList(animals);
 
-            var animalIndex = GetValidInput(printOptions, verifyInput);
+            var animalIndex = GetValidInput(printOptions, isInputValid);
 
             return animals[int.Parse(animalIndex) - 1];
         }
 
         internal static PropertyInfo GetPropertyToEdit(Animal animal)
         {
-            var propertyInfos = animal.GetType().GetProperties();
+            var propertyInfosList = animal.GetType().GetProperties().Where(propertyInfo => !propertyInfo.Name.Equals("Type")).ToList();
 
-            var verifyInput = (string option) =>
-                Validation.IsIntInRange(option, min: 1, max: propertyInfos.Length);
+            var isInputValid = (string option) =>
+                Validation.IsIntInRange(option, min: 1, max: propertyInfosList.Count);
             var printOptions = () => PrintAnimalProperties(animal);
 
-            var propertyIndex = GetValidInput(printOptions, verifyInput);
+            var propertyIndex = GetValidInput(printOptions, isInputValid);
 
-            return propertyInfos[int.Parse(propertyIndex) - 1];
+            return propertyInfosList[int.Parse(propertyIndex) - 1];
         }
 
         private static void PrintAnimalProperties(Animal animal)
         {
             Console.WriteLine($"{Resources.ChoosePropertyUserMessage}" +
                 $"{animal.Name} - {animal.Type}:");
+
             PrintObjectProperties(animal);
         }
 
         private static void PrintObjectProperties(object obj)
-        {
-            var propertyInfos = obj.GetType().GetProperties();
-
-            var propertyInfosList = propertyInfos.Where(propertyInfo => !propertyInfo.Name.Equals("Type")).ToList();
+        {  
+            var propertyInfosList = obj.GetType().GetProperties()
+                .Where(propertyInfo => !propertyInfo.Name.Equals("Type")).ToList();
 
             for (var i = 0; i < propertyInfosList.Count; i++)
             {
-                PrintProperty(propertyInfos[i], obj, i);
+                PrintProperty(propertyInfosList[i], obj, i);
             }
         }
 
@@ -177,12 +178,7 @@ namespace ZooConsole.Models.IO
             }
         }
 
-        private static void PrintListRecord(int index, string name, string value)
-        {
-            Console.WriteLine($"{index + 1}. {name} - {value}");
-        }
-
-        private static void PrintAnimalEditList(List<Animal> animals)
+        private static void PrintAnimalToEditList(List<Animal> animals)
         {
             Console.WriteLine(Resources.SelectAnimalToEditUserMessage);
 
@@ -192,29 +188,40 @@ namespace ZooConsole.Models.IO
             }
         }
 
-        private static void PrintMainMenu() =>
-            PrintEnumOptions(typeof(MenuOptions));
+        private static void PrintListRecord(int index, string name, string value)
+        {
+            Console.WriteLine($"{index + 1}. {name} - {value}");
+        }
+
+        private static void PrintMainMenu()
+        {
+            Console.WriteLine(string.Format(Resources.MainMenu,
+                (int)MenuOptions.ViewAll,
+                (int)MenuOptions.Create,
+                (int)MenuOptions.Edit,
+                (int)MenuOptions.SaveZoo,
+                (int)MenuOptions.Exit));
+        }
 
         private static void PrintEnumOptions(Type enumType)
         {
-            Console.WriteLine(@$"{string.Format(Resources.EnumOptionsTitle,
-                enumType.Name)}");
+            Console.WriteLine($"{enumType.Name}:");
 
             var names = enumType.GetEnumNames();
 
-            for (int i = 0; i < names.Length; i++)
+            for (int index = 0; index < names.Length; index++)
             {
-                Console.WriteLine($"{i + 1}. {names[i]}");
+                Console.WriteLine($"{index + 1}. {names[index]}");
             }
         }
 
-        private static string GetValidInput(Action printOptions, Func<string, bool> verifyOption)
+        private static string GetValidInput(Action printOptions, Func<string, bool> IsInputValid)
         {
             printOptions();
 
             var option = Console.ReadLine();
 
-            while (!verifyOption(option))
+            while (!IsInputValid(option))
             {
                 Console.WriteLine(Resources.InvalidOptionUserMessage);
                 printOptions();

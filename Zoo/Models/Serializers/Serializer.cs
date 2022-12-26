@@ -13,19 +13,14 @@ namespace Zoo.Models.Serializers
         public abstract string Serialize(int number);
 
         protected string SerializeProperty(object property)
-        {
-            //Dictionary<Type, Func<object, string>> dictionary = new ()
-            //{
-            //    {typeof(string), Serialize}
-            //};
-
+        {         
             return property switch
             {
                 string text => Serialize(text),
                 IEnumerable<object> list => Serialize(list),
                 bool value => Serialize(value),
                 int number => Serialize(number),
-                Enum enumProperty => Serialize(enumProperty), // Cant use Enum like that?
+                Enum enumProperty => Serialize(enumProperty),
                 _ => Serialize(property),
             };
         }
