@@ -1,4 +1,4 @@
-﻿namespace ZooConsole.Enums
+﻿namespace ZooConsole.Models.Enums
 {
     internal enum MenuOptions
     {

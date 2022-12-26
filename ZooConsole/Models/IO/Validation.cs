@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
-using Zoo.Models.AnimalFamilies;
+using Zoo.Models.Animals;
 
-namespace ZooConsole
+namespace ZooConsole.Models.IO
 {
     internal static class Validation
     {

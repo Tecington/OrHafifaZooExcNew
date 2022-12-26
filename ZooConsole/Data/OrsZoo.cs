@@ -1,5 +1,4 @@
-﻿using Zoo.Models.AnimalFamilies;
-using Zoo.Models.Animals;
+﻿using Zoo.Models.Animals;
 using Zoo.Models.Animals.Otters;
 using Zoo.Models.Enums;
 

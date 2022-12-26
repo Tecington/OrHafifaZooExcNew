@@ -1,9 +1,10 @@
 ﻿using System.Reflection;
 using Zoo;
-using Zoo.Models.AnimalFamilies;
-using Zoo.Models.CustomAttributes;
+using Zoo.Models.Animals;
+using Zoo.Models.Attributes;
 using ZooConsole.Data;
-using ZooConsole.Enums;
+using ZooConsole.Models.Enums;
+using ZooConsole.Models.IO;
 using ZooConsole.Properties;
 
 namespace ZooConsole

@@ -1,6 +1,6 @@
 ﻿using Zoo.Models.Enums;
 
-namespace Zoo.Models.AnimalFamilies
+namespace Zoo.Models.Animals
 {
     public abstract class Animal
     {

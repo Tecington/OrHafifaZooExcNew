@@ -1,7 +1,7 @@
-﻿using Zoo.Models.AnimalFamilies;
-using Zoo.Models.CustomAttributes;
+﻿using Zoo.Models.Animals.AnimalFamilies;
+using Zoo.Models.Attributes;
 
-namespace Zoo.Models.Animals.Otters
+namespace Zoo.Models.Animals
 {
     [Animal]
     public class Otter : Mammal

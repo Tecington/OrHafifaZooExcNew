@@ -1,9 +1,9 @@
 ﻿using System.Reflection;
-using Zoo.Models.AnimalFamilies;
-using ZooConsole.Enums;
+using Zoo.Models.Animals;
+using ZooConsole.Models.Enums;
 using ZooConsole.Properties;
 
-namespace ZooConsole
+namespace ZooConsole.Models.IO
 {
     internal static class ConsoleIo
     {

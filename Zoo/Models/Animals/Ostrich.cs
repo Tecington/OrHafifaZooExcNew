@@ -1,5 +1,5 @@
-﻿using Zoo.Models.CustomAttributes;
-using Zoo.Models.AnimalFamilies;
+﻿using Zoo.Models.Attributes;
+using Zoo.Models.Animals.AnimalFamilies;
 
 namespace Zoo.Models.Animals
 {

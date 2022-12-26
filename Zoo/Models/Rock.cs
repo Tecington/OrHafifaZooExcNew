@@ -1,4 +1,4 @@
-﻿namespace Zoo.Models.Animals.Otters
+﻿namespace Zoo.Models
 {
     public class Rock
     {

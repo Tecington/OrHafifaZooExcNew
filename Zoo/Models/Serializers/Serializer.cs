@@ -1,4 +1,4 @@
-﻿using Zoo.Models.CustomAttributes;
+﻿using Zoo.Models.Attributes;
 using System.Reflection;
 
 namespace Zoo.Models.Serializers

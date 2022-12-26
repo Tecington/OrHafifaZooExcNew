@@ -1,4 +1,4 @@
-﻿namespace Zoo.Models.AnimalFamilies
+﻿namespace Zoo.Models.Animals.AnimalFamilies
 {
     public class Lizard : Animal
     {
