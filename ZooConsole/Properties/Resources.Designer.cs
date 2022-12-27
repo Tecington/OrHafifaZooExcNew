@@ -81,11 +81,35 @@ namespace ZooConsole.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}. Orange
+        ///{1}. Yellow
+        ///{2}. Blue
+        ///{3}. Red
+        ///{4}. Green.
+        /// </summary>
+        internal static string ColorOptions {
+            get {
+                return ResourceManager.GetString("ColorOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Oops, Something went wrong executing your choice. Try again!.
         /// </summary>
         internal static string ExceptionCaughtUserMessage {
             get {
                 return ResourceManager.GetString("ExceptionCaughtUserMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Male
+        ///{1}. Female
+        ///.
+        /// </summary>
+        internal static string GenderOptions {
+            get {
+                return ResourceManager.GetString("GenderOptions", resourceCulture);
             }
         }
         
@@ -99,7 +123,19 @@ namespace ZooConsole.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Thats not a possible option, try again!.
+        ///   Looks up a localized string similar to Hello!
+        ///Welcome to the zoo console!
+        ///.
+        /// </summary>
+        internal static string GreetUserMessage {
+            get {
+                return ResourceManager.GetString("GreetUserMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thats not a possible option, try again!
+        ///.
         /// </summary>
         internal static string InvalidOptionUserMessage {
             get {
@@ -109,11 +145,12 @@ namespace ZooConsole.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to Main Menu:
-        ///View all animals - {0}
-        ///Create new animal - {1}
-        ///Edit existing animal - {2}
-        ///Save zoo - {3}
-        ///Exit - {4}.
+        ///
+        ///{0}. View all animals
+        ///{1}. Create new animal
+        ///{2}. Edit existing animal 
+        ///{3}. Save zoo
+        ///{4}. Exit.
         /// </summary>
         internal static string MainMenu {
             get {
@@ -122,7 +159,8 @@ namespace ZooConsole.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please select animal to edit by index:.
+        ///   Looks up a localized string similar to Please select animal to edit by index:
+        ///.
         /// </summary>
         internal static string SelectAnimalToEditUserMessage {
             get {
@@ -131,11 +169,33 @@ namespace ZooConsole.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please select animal type to create by index:.
+        ///   Looks up a localized string similar to Please select animal type to create by index:
+        ///.
         /// </summary>
-        internal static string SelectAnimalTypeToCreateMessage {
+        internal static string SelectAnimalTypeUserMessage {
             get {
-                return ResourceManager.GetString("SelectAnimalTypeToCreateMessage", resourceCulture);
+                return ResourceManager.GetString("SelectAnimalTypeUserMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Hammer Head
+        ///{1}. Loan
+        ///{2}. Great White.
+        /// </summary>
+        internal static string SharkTypeOptions {
+            get {
+                return ResourceManager.GetString("SharkTypeOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Woops, Seems like there is no animals at the zoo currently.
+        ///.
+        /// </summary>
+        internal static string ZooEmptyUserMessage {
+            get {
+                return ResourceManager.GetString("ZooEmptyUserMessage", resourceCulture);
             }
         }
     }

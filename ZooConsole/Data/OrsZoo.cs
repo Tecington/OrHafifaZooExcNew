@@ -1,6 +1,10 @@
 ﻿using Zoo.Models;
 using Zoo.Models.Animals;
-using Zoo.Models.Enums;
+using Zoo.Models.Animals.AnimalFamilies.Birds.Species;
+using Zoo.Enums;
+using Zoo.Models.Animals.AnimalFamilies.Fish.Species;
+using Zoo.Models.Animals.AnimalFamilies.Lizards.Species;
+using Zoo.Models.Animals.AnimalFamilies.Mammals.Species;
 
 namespace ZooConsole.Data
 {

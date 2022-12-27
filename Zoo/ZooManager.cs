@@ -1,7 +1,7 @@
 ﻿using System.Configuration;
 using Zoo.Exceptions;
-using Zoo.Models.FileWriters;
-using Zoo.Models.Serializers;
+using Zoo.FileWriters;
+using Zoo.Serializers;
 
 namespace Zoo
 {

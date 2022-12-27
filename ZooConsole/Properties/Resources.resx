@@ -125,27 +125,57 @@
     <value>Please select property to edit by index:
 </value>
   </data>
+  <data name="ColorOptions" xml:space="preserve">
+    <value>{0}. Orange
+{1}. Yellow
+{2}. Blue
+{3}. Red
+{4}. Green</value>
+  </data>
   <data name="ExceptionCaughtUserMessage" xml:space="preserve">
     <value>Oops, Something went wrong executing your choice. Try again!</value>
+  </data>
+  <data name="GenderOptions" xml:space="preserve">
+    <value>{0}. Male
+{1}. Female
+</value>
   </data>
   <data name="GetPropertyUserMessage" xml:space="preserve">
     <value>Please enter {0}:</value>
   </data>
+  <data name="GreetUserMessage" xml:space="preserve">
+    <value>Hello!
+Welcome to the zoo console!
+</value>
+  </data>
   <data name="InvalidOptionUserMessage" xml:space="preserve">
-    <value>Thats not a possible option, try again!</value>
+    <value>Thats not a possible option, try again!
+</value>
   </data>
   <data name="MainMenu" xml:space="preserve">
     <value>Main Menu:
-View all animals - {0}
-Create new animal - {1}
-Edit existing animal - {2}
-Save zoo - {3}
-Exit - {4}</value>
+
+{0}. View all animals
+{1}. Create new animal
+{2}. Edit existing animal 
+{3}. Save zoo
+{4}. Exit</value>
   </data>
   <data name="SelectAnimalToEditUserMessage" xml:space="preserve">
-    <value>Please select animal to edit by index:</value>
+    <value>Please select animal to edit by index:
+</value>
   </data>
-  <data name="SelectAnimalTypeToCreateMessage" xml:space="preserve">
-    <value>Please select animal type to create by index:</value>
+  <data name="SelectAnimalTypeUserMessage" xml:space="preserve">
+    <value>Please select animal type to create by index:
+</value>
+  </data>
+  <data name="SharkTypeOptions" xml:space="preserve">
+    <value>{0}. Hammer Head
+{1}. Loan
+{2}. Great White</value>
+  </data>
+  <data name="ZooEmptyUserMessage" xml:space="preserve">
+    <value>Woops, Seems like there is no animals at the zoo currently.
+</value>
   </data>
 </root>

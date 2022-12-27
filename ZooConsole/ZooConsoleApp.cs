@@ -1,21 +1,29 @@
 ﻿using System.Reflection;
 using Zoo;
+using Zoo.Attributes;
 using Zoo.Models.Animals;
-using Zoo.Models.Attributes;
 using ZooConsole.Data;
-using ZooConsole.Models.Enums;
-using ZooConsole.Models.IO;
+using ZooConsole.Enums;
+using ZooConsole.IO;
 using ZooConsole.Properties;
+using ZooConsole.Exceptions;
 
 namespace ZooConsole
 {
     internal class ZooConsoleApp
     {
-        private Dictionary<MenuOptions, Action> MenuDictionary { get; }
-        private Dictionary<Type, Action<Type, PropertyInfo, object>> CreatePropertyDictionary { get; }
+        private Dictionary<MenuOptions, Action> MenuDictionary { get; set; }
+        private Dictionary<Type, Action<Type, PropertyInfo, object>> CreatePrimitiveDictionary { get; set; }
         private ZooManager ZooManager { get; }
 
         internal ZooConsoleApp()
+        {
+            InitializeDictionarys();
+
+            ZooManager = new ZooManager();
+        }
+
+        private void InitializeDictionarys()
         {
             MenuDictionary = new Dictionary<MenuOptions, Action>
             {
@@ -25,18 +33,18 @@ namespace ZooConsole
                 { MenuOptions.SaveZoo, SaveZoo }
             };
 
-            CreatePropertyDictionary = new Dictionary<Type, Action<Type, PropertyInfo, object>>
+            CreatePrimitiveDictionary = new Dictionary<Type, Action<Type, PropertyInfo, object>>
             {
                 {typeof(string), SetStringProperty },
                 {typeof(int), SetIntProperty },
                 {typeof(bool), SetBoolProperty }
             };
-
-            ZooManager = new ZooManager();
         }
 
         internal void Start()
         {
+            ConsoleIo.GreetUser();
+
             var menuOption = ConsoleIo.GetMenuOption();
 
             while (menuOption != MenuOptions.Exit)
@@ -60,28 +68,66 @@ namespace ZooConsole
 
         private void ViewAll()
         {
-            ConsoleIo.PrintZoo(OrsZoo.Animals);
+            var animals = OrsZoo.Animals;
+
+            if (animals.Count == 0)
+            {
+                ConsoleIo.Write(Resources.ZooEmptyUserMessage);
+            }
+            else
+            {
+                animals.ForEach(animal =>
+                {
+                    ConsoleIo.PrintObjectProperties(animal, 
+                        $"{animal.Name} - {animal.Type}:");
+                    ConsoleIo.Write();
+                });
+            }
         }
 
         private void Create()
         {
             var animalTypes = typeof(Animal).Assembly.GetTypes()
-                .Where(type => type.IsDefined(typeof(AnimalAttribute)) 
-                && !type.IsDefined(typeof(UnSerializableAttribute)));
+                .Where(type => type.IsClass && !type.IsAbstract 
+                && type.IsSubclassOf(typeof(Animal))
+                && !type.IsDefined(typeof(UnSerializableAttribute))).ToList();
 
-            var animalType = ConsoleIo.GetAnimalTypeToCreate(animalTypes.ToList());
-            
-            var newAnimal = CreateObject(animalType);
+            var typesStrings = animalTypes.Select(type => type.Name).ToList();
 
-            OrsZoo.Animals.Add((Animal)newAnimal);
+            var animalType = animalTypes[ConsoleIo.GetIndexFromList(typesStrings,
+                Resources.SelectAnimalTypeUserMessage)];
+
+            var newAnimal = (Animal)CreateObject(animalType);
+
+            OrsZoo.Animals.Add(newAnimal);
         }
 
         private void Edit()
         {
-            var animal = ConsoleIo.GetAnimalToEdit(OrsZoo.Animals);
-            var property = ConsoleIo.GetPropertyToEdit(animal);
+            var animalsStrings = OrsZoo.Animals.Select(animal =>
+                $"{animal.Name} - {animal.Type}").ToList();
 
-            CreateProperty(property, animal);
+            var chosenAnimal = OrsZoo.Animals[ConsoleIo.GetIndexFromList(animalsStrings, 
+                Resources.SelectAnimalToEditUserMessage)];
+
+            var editAnimalTitle = $"{Resources.ChoosePropertyUserMessage}" +
+                $"\n{chosenAnimal.Name} - {chosenAnimal.Type}:";
+
+            var chosenProperty = ConsoleIo.GetPropertyToEdit(chosenAnimal, editAnimalTitle);
+            
+            object objectToEdit = chosenAnimal;
+
+            while (Validation.IsComplexObject(chosenProperty.GetValue(objectToEdit)))
+            {
+                objectToEdit = chosenProperty.GetValue(objectToEdit);
+
+                chosenProperty = objectToEdit is Animal
+                    ? ConsoleIo.GetPropertyToEdit(objectToEdit, editAnimalTitle)
+                    : ConsoleIo.GetPropertyToEdit(objectToEdit, 
+                        $"{Resources.ChoosePropertyUserMessage}\n{objectToEdit.GetType().Name}:");
+            }
+
+            CreateProperty(chosenProperty, objectToEdit);
         }
 
         private void SaveZoo()
@@ -92,13 +138,10 @@ namespace ZooConsole
         private object CreateObject(Type objectType)
         {
             var newObject = Activator.CreateInstance(objectType);
-            var objectProperties = objectType.GetProperties()
-                .Where(property => !property.Name.Equals("Type"));
 
-            foreach (var propertyInfo in objectProperties)
-            {
-                CreateProperty(propertyInfo, newObject);
-            }
+            objectType.GetProperties().Where(property => 
+                property.GetCustomAttribute(typeof(HidePrintAttribute)) is null)
+                    .ToList().ForEach(propertyInfo => CreateProperty(propertyInfo, newObject));
 
             return newObject;
         }
@@ -107,68 +150,57 @@ namespace ZooConsole
         {
             var propertyType = propertyInfo.PropertyType;
 
-            if (CreatePropertyDictionary.ContainsKey(propertyType))
+            if (CreatePrimitiveDictionary.ContainsKey(propertyType))
             {
-                CreatePropertyDictionary[propertyType]
+                CreatePrimitiveDictionary[propertyType]
                     .Invoke(propertyType, propertyInfo, obj);
             }
             else if (propertyType.IsEnum)
             {
                 SetEnumProperty(propertyType, propertyInfo, obj);
-            }
+            } 
             else
             {
-                SetObjectProperty(propertyType, propertyInfo, obj);
+                throw new UnhandledPropertyTypeException();
             }
         }
 
         private void SetEnumProperty(Type propertyType,
             PropertyInfo propertyInfo, object newObject)
         {
-            var enumValue = ConsoleIo.GetEnumProperty(propertyType);
-
-            propertyInfo.SetValue(newObject, Enum.ToObject(propertyType, enumValue));
+            propertyInfo.SetValue(newObject, Enum.ToObject(propertyType, 
+                ConsoleIo.GetEnumProperty(propertyType)));
         }
 
         private void SetStringProperty(Type propertyType,
             PropertyInfo propertyInfo, object newObject)
         {
-            string name;
+            string stringPropertyValue;
 
             if (propertyInfo.Name.Equals("Name"))
             {
-                name = ConsoleIo.GetNameProperty(propertyInfo, OrsZoo.Animals);
+                stringPropertyValue = ConsoleIo.GetStringProperty(propertyInfo, 
+                    (string str) => Validation.IsLettersOnly(str) && 
+                    Validation.IsNameAvailable(str, OrsZoo.Animals));
             }
             else
             {
-                name = ConsoleIo.GetStringProperty(propertyInfo);
+                stringPropertyValue = ConsoleIo.GetStringProperty(propertyInfo, Validation.IsLettersOnly); ;
             }
 
-            propertyInfo.SetValue(newObject, name);
+            propertyInfo.SetValue(newObject, stringPropertyValue);
         }
 
         private void SetIntProperty(Type propertyType,
             PropertyInfo propertyInfo, object newObject)
         {
-            var value = ConsoleIo.GetIntProperty(propertyInfo);
-
-            propertyInfo.SetValue(newObject, value);
+            propertyInfo.SetValue(newObject, ConsoleIo.GetIntProperty(propertyInfo));
         }
 
         private void SetBoolProperty(Type propertyType,
             PropertyInfo propertyInfo, object newObject)
         {
-            var value = ConsoleIo.GetBoolProperty(propertyInfo);
-
-            propertyInfo.SetValue(newObject, value);
-        }
-
-        private void SetObjectProperty(Type propertyType,
-            PropertyInfo propertyInfo, object newObject)
-        {
-            var objectProperty = CreateObject(propertyInfo.PropertyType);
-
-            propertyInfo.SetValue(newObject, objectProperty);
+            propertyInfo.SetValue(newObject, ConsoleIo.GetBoolProperty(propertyInfo));
         }
     }
 }
