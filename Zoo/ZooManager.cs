@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using Zoo.Exceptions;
 using Zoo.FileWriters;
+using Zoo.Models.Animals;
 using Zoo.Serializers;
 
 namespace Zoo
@@ -11,7 +12,7 @@ namespace Zoo
         private readonly string JsonFilePath = ConfigurationManager.AppSettings["JsonFilePath"];
         private readonly string SaveType = ConfigurationManager.AppSettings["SaveFileType"];
 
-        public void SaveZoo(IEnumerable<object> animals)
+        public void SaveZoo(IEnumerable<Animal> animals)
         {
             switch (SaveType)
             {

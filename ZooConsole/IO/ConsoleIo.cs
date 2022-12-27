@@ -25,6 +25,7 @@ namespace ZooConsole.IO
 
         internal static string Read()
         {
+            Write();
             var value = Console.ReadLine();
             Write();
 
@@ -63,7 +64,6 @@ namespace ZooConsole.IO
 
             var printOptions = () =>
             {
-                Write(string.Format(Resources.GetPropertyUserMessage, enumType.Name));
                 PrintEnumDictioanry[enumType].Invoke();
             };
 
@@ -90,7 +90,7 @@ namespace ZooConsole.IO
             {
                 Write(@$"{string.Format
                     (Resources.GetPropertyUserMessage, propertyInfo.Name)}" +
-                    $"\n{Resources.BoolOptions}");
+                    $"{Environment.NewLine}{Resources.BoolOptions}");
             };
 
             var value = GetValidInput(printOptions, isInputValid);

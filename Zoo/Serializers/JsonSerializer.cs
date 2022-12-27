@@ -8,15 +8,16 @@
         {
             _tabsCounter++;
 
-            var jsonString = FilterUnSerializable(objects).Select(Serialize)
-                .Aggregate("[\n", (current, currentObjectJsonString) =>
-                    $"{current}{GetTabsAsString(_tabsCounter)}{currentObjectJsonString}\n");
+            var jsonString = objects.Where(IsSerializable).Select(Serialize)
+                .Aggregate($"[{Environment.NewLine}", (current, currentObjectJsonString) =>
+                    $"{current}{GetTabsAsString(_tabsCounter)}" +
+                    $"{currentObjectJsonString}{Environment.NewLine}");
 
             jsonString = RemoveExcessChars(jsonString);
 
             _tabsCounter--;
 
-            return $"{jsonString}\n]";
+            return $"{jsonString}{Environment.NewLine}]";
         }
 
         public override string Serialize(object? obj)
@@ -30,13 +31,14 @@
 
             var propertyInfos = obj.GetType().GetProperties();
 
-            var jsonString = propertyInfos.Aggregate("{\n", (currentPairString, currentInfo) =>
+            var jsonString = propertyInfos.Aggregate("{" + $"{Environment.NewLine}", 
+                (currentPairString, currentInfo) =>
             {
                 var propValue = currentInfo.GetValue(obj);
 
                 currentPairString += $"{GetTabsAsString(_tabsCounter - 1)}\t\"{currentInfo.Name}\": ";
 
-                currentPairString += $"{SerializeProperty(propValue)}\n";
+                currentPairString += $"{SerializeProperty(propValue)}{Environment.NewLine}";
 
                 return currentPairString;
             });
@@ -45,7 +47,7 @@
 
             jsonString = RemoveExcessChars(jsonString);
 
-            return jsonString + $"\n{GetTabsAsString(_tabsCounter)}" + "},";
+            return jsonString + $"{Environment.NewLine}{GetTabsAsString(_tabsCounter)}" + "},";
         }
 
         public override string Serialize(string str) => $"\"{str}\",";

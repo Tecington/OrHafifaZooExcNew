@@ -81,7 +81,9 @@ namespace ZooConsole.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Orange
+        ///   Looks up a localized string similar to Please choose Color:
+        ///
+        ///{0}. Orange
         ///{1}. Yellow
         ///{2}. Blue
         ///{3}. Red
@@ -103,7 +105,9 @@ namespace ZooConsole.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Male
+        ///   Looks up a localized string similar to Please choose Gender:
+        ///
+        ///{0}. Male
         ///{1}. Female
         ///.
         /// </summary>
@@ -179,7 +183,9 @@ namespace ZooConsole.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Hammer Head
+        ///   Looks up a localized string similar to Please choose Shark Type:
+        ///
+        ///{0}. Hammer Head
         ///{1}. Loan
         ///{2}. Great White.
         /// </summary>

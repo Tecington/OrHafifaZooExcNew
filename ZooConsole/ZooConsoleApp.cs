@@ -111,7 +111,7 @@ namespace ZooConsole
                 Resources.SelectAnimalToEditUserMessage)];
 
             var editAnimalTitle = $"{Resources.ChoosePropertyUserMessage}" +
-                $"\n{chosenAnimal.Name} - {chosenAnimal.Type}:";
+                $"{Environment.NewLine}{chosenAnimal.Name} - {chosenAnimal.Type}:";
 
             var chosenProperty = ConsoleIo.GetPropertyToEdit(chosenAnimal, editAnimalTitle);
             
@@ -124,7 +124,8 @@ namespace ZooConsole
                 chosenProperty = objectToEdit is Animal
                     ? ConsoleIo.GetPropertyToEdit(objectToEdit, editAnimalTitle)
                     : ConsoleIo.GetPropertyToEdit(objectToEdit, 
-                        $"{Resources.ChoosePropertyUserMessage}\n{objectToEdit.GetType().Name}:");
+                        $"{Resources.ChoosePropertyUserMessage}" +
+                        $"{Environment.NewLine}{objectToEdit.GetType().Name}:");
             }
 
             CreateProperty(chosenProperty, objectToEdit);

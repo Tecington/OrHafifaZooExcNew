@@ -4,9 +4,9 @@
     {
         public override string Serialize(IEnumerable<object> objects)
         {
-            var csvString = FilterUnSerializable(objects).Select(Serialize)
+            var csvString = objects.Where(IsSerializable).Select(Serialize)
                 .Aggregate(string.Empty, (current, currentObjectCsvString) =>
-                    $"{current}{currentObjectCsvString}\n");
+                    $"{current}{currentObjectCsvString}{Environment.NewLine}");
 
             return RemoveExcessChars(csvString);
         }

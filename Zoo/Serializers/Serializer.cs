@@ -25,9 +25,6 @@ namespace Zoo.Serializers
             };
         }
 
-        protected IEnumerable<object> FilterUnSerializable(IEnumerable<object> objects) =>
-            objects.Where(IsSerializable);
-
         protected bool IsSerializable(object obj) =>
             obj.GetType().GetCustomAttribute(typeof(UnSerializableAttribute)) is null;
 

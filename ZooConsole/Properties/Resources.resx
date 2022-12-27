@@ -126,7 +126,9 @@
 </value>
   </data>
   <data name="ColorOptions" xml:space="preserve">
-    <value>{0}. Orange
+    <value>Please choose Color:
+
+{0}. Orange
 {1}. Yellow
 {2}. Blue
 {3}. Red
@@ -136,7 +138,9 @@
     <value>Oops, Something went wrong executing your choice. Try again!</value>
   </data>
   <data name="GenderOptions" xml:space="preserve">
-    <value>{0}. Male
+    <value>Please choose Gender:
+
+{0}. Male
 {1}. Female
 </value>
   </data>
@@ -170,7 +174,9 @@ Welcome to the zoo console!
 </value>
   </data>
   <data name="SharkTypeOptions" xml:space="preserve">
-    <value>{0}. Hammer Head
+    <value>Please choose Shark Type:
+
+{0}. Hammer Head
 {1}. Loan
 {2}. Great White</value>
   </data>
