@@ -1,4 +1,4 @@
-﻿namespace Zoo.Enums
+﻿namespace Zoo.Models.Animals.Fish.Species.Sharks
 {
     public enum SharkType
     {

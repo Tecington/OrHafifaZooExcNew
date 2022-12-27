@@ -1,4 +1,4 @@
-﻿namespace Zoo.Models.Animals.AnimalFamilies.Birds
+﻿namespace Zoo.Models.Animals.Birds
 {
     public abstract class Bird : Animal
     {

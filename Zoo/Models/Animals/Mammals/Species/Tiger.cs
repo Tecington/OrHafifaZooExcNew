@@ -1,4 +1,4 @@
-﻿namespace Zoo.Models.Animals.AnimalFamilies.Mammals.Species
+﻿namespace Zoo.Models.Animals.Mammals.Species
 {
     public class Tiger : Mammal
     {

@@ -1,10 +1,10 @@
-﻿using Zoo.Enums;
+﻿using Zoo.Models.Enums;
 
-namespace Zoo.Models.Animals.AnimalFamilies.Lizards.Species
+namespace Zoo.Models.Animals.Lizards.Species
 {
     public class Chameleon : Lizard
     {
-        public Color CurrentColor { get; set; }
+        public AnimalColor CurrentColor { get; set; }
 
         public Chameleon()
         {

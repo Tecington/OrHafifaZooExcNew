@@ -1,10 +1,11 @@
 ﻿using Zoo.Models;
 using Zoo.Models.Animals;
 using Zoo.Models.Animals.AnimalFamilies.Birds.Species;
-using Zoo.Enums;
 using Zoo.Models.Animals.AnimalFamilies.Fish.Species;
 using Zoo.Models.Animals.AnimalFamilies.Lizards.Species;
 using Zoo.Models.Animals.AnimalFamilies.Mammals.Species;
+using Zoo.Models.Animals.Fish.Species.Sharks;
+using Zoo.Models.Enums;
 
 namespace ZooConsole.Data
 {
@@ -15,16 +16,16 @@ namespace ZooConsole.Data
             new Chameleon
             {
                 Age = 12,
-                CurrentColor = Color.Blue,
+                CurrentColor = AnimalColor.Blue,
                 FavoriteHumanName = "Liron",
-                Gender = Gender.Female,
+                Gender = AnimalGender.Female,
                 Name = "Lizi"
             },
             new Elephant
             {
                 Age = 100,
                 FavoriteHumanName = "Piron",
-                Gender = Gender.Male,
+                Gender = AnimalGender.Male,
                 Name = "Pili",
                 TrunkLength = 10,
                 Tusks = 1
@@ -33,7 +34,7 @@ namespace ZooConsole.Data
             {
                 Age = 40,
                 FavoriteHumanName = "Shawn",
-                Gender = Gender.Male,
+                Gender = AnimalGender.Male,
                 IsHeadInGround = true,
                 Name = "Osti"
             },
@@ -41,7 +42,7 @@ namespace ZooConsole.Data
             {
                 Age = 10,
                 FavoriteHumanName = "Mike",
-                Gender = Gender.Female,
+                Gender = AnimalGender.Female,
                 Name = "Moshe",
                 FavoriteRock = new Rock
                 {
@@ -52,7 +53,7 @@ namespace ZooConsole.Data
             {
                 Age = 30,
                 FavoriteHumanName = "Amit",
-                Gender = Gender.Male,
+                Gender = AnimalGender.Male,
                 Name = "Amnon",
                 IsLawyer = true,
                 SharkType = SharkType.HammerHead
@@ -61,7 +62,7 @@ namespace ZooConsole.Data
             {
                 Age = 23,
                 FavoriteHumanName = "Tom",
-                Gender = Gender.Female,
+                Gender = AnimalGender.Female,
                 HumansEaten = 3,
                 Name = "Tigi",
                 Stripes = 50

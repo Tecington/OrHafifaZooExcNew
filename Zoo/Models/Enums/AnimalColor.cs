@@ -1,11 +1,11 @@
-﻿namespace Zoo.Enums
+﻿namespace Zoo.Models.Enums
 {
-    public enum Color
+    public enum AnimalColor
     {
         Red = 1,
         Blue,
         Orange,
         Green,
-        Yellow,
+        Yellow
     }
 }

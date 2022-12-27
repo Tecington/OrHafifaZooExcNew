@@ -2,7 +2,8 @@
 using ZooConsole.Enums;
 using ZooConsole.Properties;
 using Zoo.Attributes;
-using Zoo.Enums;
+using Zoo.Models.Animals.Fish.Species.Sharks;
+using Zoo.Models.Enums;
 
 namespace ZooConsole.IO
 {
@@ -11,8 +12,8 @@ namespace ZooConsole.IO
         private static readonly Dictionary<Type, Action> PrintEnumDictioanry = new Dictionary<Type, Action>()
         {
             {typeof(MenuOptions), PrintMenuOptions },
-            {typeof(Color), PrintColorOptions },
-            {typeof(Gender), PrintGenderOptions },
+            {typeof(AnimalColor), PrintColorOptions },
+            {typeof(AnimalGender), PrintGenderOptions },
             {typeof(SharkType), PrintSharkTypeOptions }
         };
 
@@ -30,21 +31,6 @@ namespace ZooConsole.IO
             Write();
 
             return value;
-        }
-
-        internal static void GreetUser()
-        {
-            Write(Resources.GreetUserMessage);
-        }
-
-        internal static MenuOptions GetMenuOption()
-        {
-            var isInputValid = (string option) =>
-                Validation.IsValidEnumValue(option, typeof(MenuOptions));
-
-            var menuOption = GetValidInput(PrintMenuOptions, isInputValid);
-
-            return (MenuOptions)int.Parse(menuOption);
         }
 
         internal static void PrintList(List<string> list, string title)
@@ -177,18 +163,18 @@ namespace ZooConsole.IO
         private static void PrintGenderOptions()
         {
             Write(string.Format(Resources.GenderOptions,
-                (int)Gender.Male,
-                (int)Gender.Female));
+                (int)AnimalGender.Male,
+                (int)AnimalGender.Female));
         }
 
         private static void PrintColorOptions()
         {
             Write(string.Format(Resources.ColorOptions,
-                (int)Color.Orange,
-                (int)Color.Yellow,
-                (int)Color.Blue,
-                (int)Color.Red,
-                (int)Color.Green));
+                (int)AnimalColor.Orange,
+                (int)AnimalColor.Yellow,
+                (int)AnimalColor.Blue,
+                (int)AnimalColor.Red,
+                (int)AnimalColor.Green));
         }
 
         private static void PrintSharkTypeOptions()
@@ -197,6 +183,21 @@ namespace ZooConsole.IO
                 (int)SharkType.HammerHead,
                 (int)SharkType.Loan,
                 (int)SharkType.GreatWhite));
+        }
+
+        private static void PrintEnum(Type enumType)
+        {
+            var resources = EnumResources.ResourceManager.GetString("");
+
+            Write(EnumResources.ResourceManager.GetString(enumType.Name));
+
+            var names = enumType.GetEnumNames();
+
+            for (int index = 0; index < names.Length; index++)
+            {
+                Write(@$"{index + 1}. {EnumResources.ResourceManager
+                    .GetString(enumType.Name + names[index])}");
+            }
         }
 
         private static string GetValidInput(Action printOptions, Func<string, bool> IsInputValid)

@@ -13,7 +13,7 @@
 
         public override string Serialize(object? obj)
         {
-            if (!IsValidObject(obj))
+            if (!IsSerializable(obj))
             {
                 return string.Empty;
             }
@@ -26,12 +26,12 @@
             return RemoveExcessChars(csvString);
         }
 
-        public override string Serialize(string str) => $"{str},";
+        protected override string Serialize(string str) => $"{str},";
 
-        public override string Serialize(bool value) => $"{value.ToString().ToUpper()},";
+        protected override string Serialize(bool value) => $"{value.ToString().ToUpper()},";
 
-        public override string Serialize(Enum enumProperty) => $"{Convert.ToInt32(enumProperty)},";
+        protected override string Serialize(Enum enumProperty) => $"{Convert.ToInt32(enumProperty)},";
 
-        public override string Serialize(int number) => $"{number},";
+        protected override string Serialize(int number) => $"{number},";
     }
 }

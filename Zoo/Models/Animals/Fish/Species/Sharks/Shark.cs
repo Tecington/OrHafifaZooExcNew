@@ -1,7 +1,6 @@
-﻿using Zoo.Enums;
-using Zoo.Attributes;
+﻿using Zoo.Attributes;
 
-namespace Zoo.Models.Animals.AnimalFamilies.Fish.Species
+namespace Zoo.Models.Animals.Fish.Species.Sharks
 {
     [UnSerializable]
     public class Shark : Fish

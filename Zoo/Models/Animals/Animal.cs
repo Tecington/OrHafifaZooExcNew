@@ -1,5 +1,5 @@
 ﻿using Zoo.Attributes;
-using Zoo.Enums;
+using Zoo.Models.Enums;
 
 namespace Zoo.Models.Animals
 {
@@ -7,7 +7,7 @@ namespace Zoo.Models.Animals
     {
         public string Name { get; set; }
         public int Age { get; set; }
-        public Gender Gender { get; set; }
+        public AnimalGender Gender { get; set; }
         public string FavoriteHumanName { get; set; }
         [HidePrint]
         public string Type { get; set; }

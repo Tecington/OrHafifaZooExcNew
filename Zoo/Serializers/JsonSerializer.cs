@@ -22,7 +22,7 @@
 
         public override string Serialize(object? obj)
         {
-            if (!IsValidObject(obj))
+            if (!IsSerializable(obj))
             {
                 return string.Empty;
             }
@@ -36,9 +36,8 @@
             {
                 var propValue = currentInfo.GetValue(obj);
 
-                currentPairString += $"{GetTabsAsString(_tabsCounter - 1)}\t\"{currentInfo.Name}\": ";
-
-                currentPairString += $"{SerializeProperty(propValue)}{Environment.NewLine}";
+                currentPairString += $"{GetTabsAsString(_tabsCounter - 1)}\t\"" +
+                    $"{currentInfo.Name}\": {SerializeProperty(propValue)}{Environment.NewLine}";
 
                 return currentPairString;
             });
@@ -50,14 +49,14 @@
             return jsonString + $"{Environment.NewLine}{GetTabsAsString(_tabsCounter)}" + "},";
         }
 
-        public override string Serialize(string str) => $"\"{str}\",";
+        protected override string Serialize(string str) => $"\"{str}\",";
 
-        public override string Serialize(bool value) => $"{value},";
+        protected override string Serialize(bool value) => $"{value},";
 
-        public override string Serialize(Enum enumProperty) => $"{Convert.ToInt32(enumProperty)},";
+        protected override string Serialize(Enum enumProperty) => $"{Convert.ToInt32(enumProperty)},";
 
-        public override string Serialize(int number) => $"{number},";
+        protected override string Serialize(int number) => $"{number},";
 
-        private static string GetTabsAsString(int tabsAmount) => new('\t', tabsAmount);
+        private string GetTabsAsString(int tabsAmount) => new('\t', tabsAmount);
     }
 }

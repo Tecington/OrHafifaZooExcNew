@@ -7,10 +7,10 @@ namespace Zoo.Serializers
     {
         public abstract string Serialize(IEnumerable<object> objects);
         public abstract string Serialize(object obj);
-        public abstract string Serialize(string str);
-        public abstract string Serialize(bool value);
-        public abstract string Serialize(Enum enumProperty);
-        public abstract string Serialize(int number);
+        protected abstract string Serialize(string str);
+        protected abstract string Serialize(bool value);
+        protected abstract string Serialize(Enum enumProperty);
+        protected abstract string Serialize(int number);
 
         protected string SerializeProperty(object property)
         {
@@ -26,11 +26,8 @@ namespace Zoo.Serializers
         }
 
         protected bool IsSerializable(object obj) =>
-            obj.GetType().GetCustomAttribute(typeof(UnSerializableAttribute)) is null;
+            obj is not null && obj.GetType().GetCustomAttribute(typeof(UnSerializableAttribute)) is null;
 
         protected string RemoveExcessChars(string text) => text.TrimEnd(',', '\n', '\t');
-
-        protected bool IsValidObject(object? obj) =>
-            obj is not null && IsSerializable(obj);
     }
 }

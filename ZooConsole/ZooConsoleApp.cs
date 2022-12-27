@@ -7,6 +7,7 @@ using ZooConsole.Enums;
 using ZooConsole.IO;
 using ZooConsole.Properties;
 using ZooConsole.Exceptions;
+using Logger.Loggers;
 
 namespace ZooConsole
 {
@@ -15,12 +16,14 @@ namespace ZooConsole
         private Dictionary<MenuOptions, Action> MenuDictionary { get; set; }
         private Dictionary<Type, Action<Type, PropertyInfo, object>> CreatePrimitiveDictionary { get; set; }
         private ZooManager ZooManager { get; }
+        private OrsLogger Logger { get; }
 
         internal ZooConsoleApp()
         {
             InitializeDictionarys();
 
             ZooManager = new ZooManager();
+            Logger = new OrsLogger();
         }
 
         private void InitializeDictionarys()
@@ -30,29 +33,32 @@ namespace ZooConsole
                 { MenuOptions.ViewAll, ViewAll },
                 { MenuOptions.Create, Create },
                 { MenuOptions.Edit, Edit },
-                { MenuOptions.SaveZoo, SaveZoo }
+                { MenuOptions.SaveZoo, SaveZoo },
+                { MenuOptions.Exit, Exit }
             };
 
             CreatePrimitiveDictionary = new Dictionary<Type, Action<Type, PropertyInfo, object>>
             {
-                {typeof(string), SetStringProperty },
-                {typeof(int), SetIntProperty },
-                {typeof(bool), SetBoolProperty }
+                { typeof(string), SetStringProperty },
+                { typeof(int), SetIntProperty },
+                { typeof(bool), SetBoolProperty }
             };
         }
 
         internal void Start()
         {
-            ConsoleIo.GreetUser();
+            ConsoleIo.Write(Resources.GreetUserMessage);
 
-            var menuOption = ConsoleIo.GetMenuOption();
+            var menuOption = (MenuOptions)ConsoleIo.GetEnumProperty(typeof(MenuOptions));
 
             while (menuOption != MenuOptions.Exit)
             {
                 TryExecuteMenuOption(menuOption);
 
-                menuOption = ConsoleIo.GetMenuOption();
+                menuOption = (MenuOptions)ConsoleIo.GetEnumProperty(typeof(MenuOptions));
             }
+
+            Logger.Log(LoggerResources.ExitLogMessage);
         }
 
         private void TryExecuteMenuOption(MenuOptions menuOption)
@@ -60,23 +66,25 @@ namespace ZooConsole
             try
             {
                 MenuDictionary[menuOption].Invoke();
-            } catch (Exception)
+            } catch (Exception exception)
             {
                 ConsoleIo.Write(Resources.ExceptionCaughtUserMessage);
+                Logger.Log(string.Format(LoggerResources.ExceptionCaughtLogMessage, 
+                    exception.GetType(), exception.StackTrace));
             }
         }
 
         private void ViewAll()
         {
-            var animals = OrsZoo.Animals;
+            Logger.Log(LoggerResources.ViewAllLogMessage);
 
-            if (animals.Count == 0)
+            if (OrsZoo.Animals.Count == 0)
             {
                 ConsoleIo.Write(Resources.ZooEmptyUserMessage);
             }
             else
             {
-                animals.ForEach(animal =>
+                OrsZoo.Animals.ForEach(animal =>
                 {
                     ConsoleIo.PrintObjectProperties(animal, 
                         $"{animal.Name} - {animal.Type}:");
@@ -87,10 +95,9 @@ namespace ZooConsole
 
         private void Create()
         {
-            var animalTypes = typeof(Animal).Assembly.GetTypes()
-                .Where(type => type.IsClass && !type.IsAbstract 
-                && type.IsSubclassOf(typeof(Animal))
-                && !type.IsDefined(typeof(UnSerializableAttribute))).ToList();
+            Logger.Log(LoggerResources.CreateLogMessage);
+
+            var animalTypes = GetSerializableAnimalTypes();
 
             var typesStrings = animalTypes.Select(type => type.Name).ToList();
 
@@ -102,8 +109,18 @@ namespace ZooConsole
             OrsZoo.Animals.Add(newAnimal);
         }
 
+        private List<Type> GetSerializableAnimalTypes()
+        {
+            return typeof(Animal).Assembly.GetTypes()
+                .Where(type => type.IsClass && !type.IsAbstract
+                && type.IsSubclassOf(typeof(Animal))
+                && !type.IsDefined(typeof(UnSerializableAttribute))).ToList();
+        }
+
         private void Edit()
         {
+            Logger.Log(LoggerResources.EditLogMessage);
+
             var animalsStrings = OrsZoo.Animals.Select(animal =>
                 $"{animal.Name} - {animal.Type}").ToList();
 
@@ -133,7 +150,14 @@ namespace ZooConsole
 
         private void SaveZoo()
         {
+            Logger.Log(LoggerResources.SaveLogMessage);
+
             ZooManager.SaveZoo(OrsZoo.Animals);
+        }
+
+        private void Exit()
+        {
+            Logger.Log(LoggerResources.ExitLogMessage);
         }
 
         private object CreateObject(Type objectType)

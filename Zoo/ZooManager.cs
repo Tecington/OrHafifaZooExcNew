@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 using Zoo.Exceptions;
-using Zoo.FileWriters;
+using Zoo.FileUtils;
 using Zoo.Models.Animals;
 using Zoo.Serializers;
 
@@ -49,7 +49,7 @@ namespace Zoo
         {
             try
             {
-                FileWriter.WriteDataToFile(filePath, data);
+                FileWriter.WriteData(filePath, data);
             }
             catch (Exception)
             {

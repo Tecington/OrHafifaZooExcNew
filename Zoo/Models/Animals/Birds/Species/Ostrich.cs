@@ -1,4 +1,4 @@
-﻿namespace Zoo.Models.Animals.AnimalFamilies.Birds.Species
+﻿namespace Zoo.Models.Animals.Birds.Species
 {
     public class Ostrich : Bird
     {
