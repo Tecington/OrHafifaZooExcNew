@@ -8,6 +8,7 @@ using ZooConsole.IO;
 using ZooConsole.Properties;
 using ZooConsole.Exceptions;
 using Logger.Loggers;
+using System;
 
 namespace ZooConsole
 {
@@ -15,15 +16,12 @@ namespace ZooConsole
     {
         private Dictionary<MenuOptions, Action> MenuDictionary { get; set; }
         private Dictionary<Type, Action<Type, PropertyInfo, object>> CreatePrimitiveDictionary { get; set; }
-        private ZooManager ZooManager { get; }
-        private OrsLogger Logger { get; }
+        private ZooManager ZooManager { get; set; }
+        private OrsLogger Logger { get; set; }
 
         internal ZooConsoleApp()
         {
             InitializeDictionarys();
-
-            ZooManager = new ZooManager();
-            Logger = new OrsLogger();
         }
 
         private void InitializeDictionarys()
@@ -47,18 +45,43 @@ namespace ZooConsole
 
         internal void Start()
         {
-            ConsoleIo.Write(Resources.GreetUserMessage);
-
-            var menuOption = (MenuOptions)ConsoleIo.GetEnumProperty(typeof(MenuOptions));
-
-            while (menuOption != MenuOptions.Exit)
+            if (TryInitializeApplication())
             {
-                TryExecuteMenuOption(menuOption);
+                ConsoleIo.Write(Resources.GreetUserMessage);
 
-                menuOption = (MenuOptions)ConsoleIo.GetEnumProperty(typeof(MenuOptions));
+                var menuOption = (MenuOptions)ConsoleIo.GetEnumProperty(typeof(MenuOptions));
+
+                while (menuOption != MenuOptions.Exit)
+                {
+                    TryExecuteMenuOption(menuOption);
+
+                    menuOption = (MenuOptions)ConsoleIo.GetEnumProperty(typeof(MenuOptions));
+                }
+
+                Logger.Log(LoggerResources.ExitLogMessage);
+            } 
+        }
+
+        private bool TryInitializeApplication()
+        {
+            try
+            {
+                Logger = new OrsLogger();
+                Logger.Log(LoggerResources.StartedAppLogMessage);
+
+                ZooManager = new ZooManager();
+            }
+            catch (Exception exception)
+            {
+                ConsoleIo.Write("Something went wrong starting the application");
+
+                Logger?.LogError(string.Format(LoggerResources.ExceptionCaughtLogMessage,
+                        exception.GetType(), exception.StackTrace));
+
+                return false;
             }
 
-            Logger.Log(LoggerResources.ExitLogMessage);
+            return true;
         }
 
         private void TryExecuteMenuOption(MenuOptions menuOption)
@@ -69,7 +92,7 @@ namespace ZooConsole
             } catch (Exception exception)
             {
                 ConsoleIo.Write(Resources.ExceptionCaughtUserMessage);
-                Logger.Log(string.Format(LoggerResources.ExceptionCaughtLogMessage, 
+                Logger.LogError(string.Format(LoggerResources.ExceptionCaughtLogMessage, 
                     exception.GetType(), exception.StackTrace));
             }
         }

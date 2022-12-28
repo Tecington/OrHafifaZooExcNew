@@ -59,5 +59,181 @@ namespace ZooConsole.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please choose animal color:
+        ///.
+        /// </summary>
+        internal static string AnimalColor {
+            get {
+                return ResourceManager.GetString("AnimalColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Blue.
+        /// </summary>
+        internal static string AnimalColorBlue {
+            get {
+                return ResourceManager.GetString("AnimalColorBlue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Green.
+        /// </summary>
+        internal static string AnimalColorGreen {
+            get {
+                return ResourceManager.GetString("AnimalColorGreen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Orange.
+        /// </summary>
+        internal static string AnimalColorOrange {
+            get {
+                return ResourceManager.GetString("AnimalColorOrange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Red.
+        /// </summary>
+        internal static string AnimalColorRed {
+            get {
+                return ResourceManager.GetString("AnimalColorRed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yellow.
+        /// </summary>
+        internal static string AnimalColorYellow {
+            get {
+                return ResourceManager.GetString("AnimalColorYellow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select animal gender:
+        ///.
+        /// </summary>
+        internal static string AnimalGender {
+            get {
+                return ResourceManager.GetString("AnimalGender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Female.
+        /// </summary>
+        internal static string AnimalGenderFemale {
+            get {
+                return ResourceManager.GetString("AnimalGenderFemale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Male.
+        /// </summary>
+        internal static string AnimalGenderMale {
+            get {
+                return ResourceManager.GetString("AnimalGenderMale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Main Menu:
+        ///Please select an option below
+        ///.
+        /// </summary>
+        internal static string MenuOptions {
+            get {
+                return ResourceManager.GetString("MenuOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create a new animal.
+        /// </summary>
+        internal static string MenuOptionsCreate {
+            get {
+                return ResourceManager.GetString("MenuOptionsCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Zoo.
+        /// </summary>
+        internal static string MenuOptionsEdit {
+            get {
+                return ResourceManager.GetString("MenuOptionsEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exit.
+        /// </summary>
+        internal static string MenuOptionsExit {
+            get {
+                return ResourceManager.GetString("MenuOptionsExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Zoo.
+        /// </summary>
+        internal static string MenuOptionsSaveZoo {
+            get {
+                return ResourceManager.GetString("MenuOptionsSaveZoo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View all animals.
+        /// </summary>
+        internal static string MenuOptionsViewAll {
+            get {
+                return ResourceManager.GetString("MenuOptionsViewAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please choose shark type:
+        ///.
+        /// </summary>
+        internal static string SharkType {
+            get {
+                return ResourceManager.GetString("SharkType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Great White.
+        /// </summary>
+        internal static string SharkTypeGreatWhite {
+            get {
+                return ResourceManager.GetString("SharkTypeGreatWhite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hammer Head.
+        /// </summary>
+        internal static string SharkTypeHammerHead {
+            get {
+                return ResourceManager.GetString("SharkTypeHammerHead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loan.
+        /// </summary>
+        internal static string SharkTypeLoan {
+            get {
+                return ResourceManager.GetString("SharkTypeLoan", resourceCulture);
+            }
+        }
     }
 }

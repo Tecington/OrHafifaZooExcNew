@@ -110,6 +110,15 @@ namespace ZooConsole.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Started application.
+        /// </summary>
+        internal static string StartedAppLogMessage {
+            get {
+                return ResourceManager.GetString("StartedAppLogMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to View all animals .
         /// </summary>
         internal static string ViewAllLogMessage {

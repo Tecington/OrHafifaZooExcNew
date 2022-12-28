@@ -136,6 +136,9 @@ Stack Trace:
   <data name="SaveLogMessage" xml:space="preserve">
     <value>Saving zoo to file</value>
   </data>
+  <data name="StartedAppLogMessage" xml:space="preserve">
+    <value>Started application</value>
+  </data>
   <data name="ViewAllLogMessage" xml:space="preserve">
     <value>View all animals </value>
   </data>

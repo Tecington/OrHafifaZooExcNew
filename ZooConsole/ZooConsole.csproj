@@ -8,13 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\source\repos\Tecington\OrHafifaLoggerExc\Loggers\Logger.csproj" />
     <ProjectReference Include="..\Zoo\Zoo.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Logger">
-      <HintPath>..\..\..\source\repos\Tecington\OrHafifaLoggerExc\Loggers\bin\Debug\net6.0\Logger.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>

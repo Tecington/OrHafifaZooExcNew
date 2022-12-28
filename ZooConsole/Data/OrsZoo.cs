@@ -1,10 +1,9 @@
 ﻿using Zoo.Models;
 using Zoo.Models.Animals;
-using Zoo.Models.Animals.AnimalFamilies.Birds.Species;
-using Zoo.Models.Animals.AnimalFamilies.Fish.Species;
-using Zoo.Models.Animals.AnimalFamilies.Lizards.Species;
-using Zoo.Models.Animals.AnimalFamilies.Mammals.Species;
+using Zoo.Models.Animals.Birds.Species;
 using Zoo.Models.Animals.Fish.Species.Sharks;
+using Zoo.Models.Animals.Lizards.Species;
+using Zoo.Models.Animals.Mammals.Species;
 using Zoo.Models.Enums;
 
 namespace ZooConsole.Data

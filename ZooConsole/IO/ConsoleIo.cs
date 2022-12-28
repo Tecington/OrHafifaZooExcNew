@@ -8,15 +8,7 @@ using Zoo.Models.Enums;
 namespace ZooConsole.IO
 {
     internal static class ConsoleIo
-    {
-        private static readonly Dictionary<Type, Action> PrintEnumDictioanry = new Dictionary<Type, Action>()
-        {
-            {typeof(MenuOptions), PrintMenuOptions },
-            {typeof(AnimalColor), PrintColorOptions },
-            {typeof(AnimalGender), PrintGenderOptions },
-            {typeof(SharkType), PrintSharkTypeOptions }
-        };
-
+    {       
         private static int tabCounter = 1;
 
         internal static void Write(string text = "")
@@ -48,10 +40,7 @@ namespace ZooConsole.IO
             var isInputValid = (string option) =>
                 Validation.IsValidEnumValue(option, enumType);
 
-            var printOptions = () =>
-            {
-                PrintEnumDictioanry[enumType].Invoke();
-            };
+            var printOptions = () => PrintEnum(enumType);
 
             var enumIndex = GetValidInput(printOptions, isInputValid);
 
@@ -150,52 +139,17 @@ namespace ZooConsole.IO
             }
         }
 
-        private static void PrintMenuOptions()
-        {
-            Write(string.Format(Resources.MainMenu,
-                (int)MenuOptions.ViewAll,
-                (int)MenuOptions.Create,
-                (int)MenuOptions.Edit,
-                (int)MenuOptions.SaveZoo,
-                (int)MenuOptions.Exit));
-        }
-
-        private static void PrintGenderOptions()
-        {
-            Write(string.Format(Resources.GenderOptions,
-                (int)AnimalGender.Male,
-                (int)AnimalGender.Female));
-        }
-
-        private static void PrintColorOptions()
-        {
-            Write(string.Format(Resources.ColorOptions,
-                (int)AnimalColor.Orange,
-                (int)AnimalColor.Yellow,
-                (int)AnimalColor.Blue,
-                (int)AnimalColor.Red,
-                (int)AnimalColor.Green));
-        }
-
-        private static void PrintSharkTypeOptions()
-        {
-            Write(string.Format(Resources.SharkTypeOptions,
-                (int)SharkType.HammerHead,
-                (int)SharkType.Loan,
-                (int)SharkType.GreatWhite));
-        }
-
         private static void PrintEnum(Type enumType)
         {
-            var resources = EnumResources.ResourceManager.GetString("");
+            var resourceManager = EnumResources.ResourceManager;
 
-            Write(EnumResources.ResourceManager.GetString(enumType.Name));
+            Write(resourceManager.GetString(enumType.Name));
 
             var names = enumType.GetEnumNames();
 
             for (int index = 0; index < names.Length; index++)
             {
-                Write(@$"{index + 1}. {EnumResources.ResourceManager
+                Write(@$"{index + 1}. {resourceManager
                     .GetString(enumType.Name + names[index])}");
             }
         }
